@@ -4,7 +4,7 @@ const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
 const net = require('net');
-const productCatalog = require('./productCatalog');
+const productCatalog = require('./data/productCatalog');
 
 // Ensure data directory exists
 const dataDir = path.join(__dirname, 'data');

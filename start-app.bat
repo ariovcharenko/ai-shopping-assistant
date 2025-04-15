@@ -8,10 +8,10 @@ if not exist "server\data" (
   mkdir "server\data"
 )
 
-REM Check if eval_dataset.jsonl exists, create it if not
-if not exist "server\data\eval_dataset.jsonl" (
-  echo Creating empty eval_dataset.jsonl file...
-  type nul > "server\data\eval_dataset.jsonl"
+REM Check if prompt_history.jsonl exists, create it if not
+if not exist "server\data\prompt_history.jsonl" (
+  echo Creating empty prompt_history.jsonl file...
+  type nul > "server\data\prompt_history.jsonl"
 )
 
 echo.

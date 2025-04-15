@@ -1,0 +1,72 @@
+{
+  "total_queries": 100,
+  "queries_with_matches": 92,
+  "match_percentage": 92.0,
+  "avg_matches_per_query": 5.29,
+  "top_unmatched_product_types": [
+    {
+      "type": "sweatpants",
+      "count": 1
+    },
+    {
+      "type": "dog toy",
+      "count": 1
+    },
+    {
+      "type": "lego set",
+      "count": 1
+    },
+    {
+      "type": "sun hat",
+      "count": 1
+    },
+    {
+      "type": "air fryer",
+      "count": 1
+    },
+    {
+      "type": "aa batteries",
+      "count": 1
+    },
+    {
+      "type": "makeup brush set",
+      "count": 1
+    }
+  ],
+  "unmatched_filters": [
+    "xl",
+    "led light",
+    "toddler",
+    "spf 30",
+    "star wars",
+    "loose",
+    "silky",
+    "age 5-6",
+    "40l",
+    "6 qt",
+    "cork",
+    "squeaky",
+    "suction cup",
+    "for car",
+    "cheap",
+    "3t",
+    "8 pack",
+    "swivel",
+    "brown",
+    "workout",
+    "upf",
+    "wide brim",
+    "synthetic",
+    "chew resistant",
+    "tension rod",
+    "usb c",
+    "nightvision",
+    "with pockets",
+    "deep pocket",
+    "satin",
+    "slip on",
+    "under $30",
+    "velcro",
+    "dinosaur"
+  ]
+}

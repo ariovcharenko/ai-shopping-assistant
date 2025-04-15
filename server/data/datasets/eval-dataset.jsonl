@@ -1,0 +1,100 @@
+{"query": "Looking for wireless earbuds with noise cancellation", "expected_output": {"category": "electronics", "subcategory": "audio", "product_type": "earbuds", "filters": ["wireless", "noise cancellation"]}}
+{"query": "Need a queen size mattress firm support", "expected_output": {"category": "furniture", "subcategory": "bedroom", "product_type": "mattress", "filters": ["queen size", "firm support"]}}
+{"query": "Looking for a waterproof hiking boots men's size 11", "expected_output": {"category": "footwear", "subcategory": "outdoor", "product_type": "hiking boots", "filters": ["waterproof", "men's", "size 11"]}}
+{"query": "stainless steel frying pan non stick", "expected_output": {"category": "kitchen", "subcategory": "cookware", "product_type": "frying pan", "filters": ["stainless steel", "non stick"]}}
+{"query": "cotton t-shirts pack of 3", "expected_output": {"category": "clothing", "subcategory": "tops", "product_type": "t-shirt", "filters": ["cotton", "pack of 3"]}}
+{"query": "adjustable desk lamp with usb charging", "expected_output": {"category": "home", "subcategory": "lighting", "product_type": "desk lamp", "filters": ["adjustable", "usb charging"]}}
+{"query": "Need dog food grain free chicken 15lb", "expected_output": {"category": "pet supplies", "subcategory": "dog food", "product_type": "dry dog food", "filters": ["grain free", "chicken", "15lb"]}}
+{"query": "external hard drive 2tb usb-c", "expected_output": {"category": "electronics", "subcategory": "computer accessories", "product_type": "external hard drive", "filters": ["2tb", "usb-c"]}}
+{"query": "yoga mat 6mm thick non slip", "expected_output": {"category": "sports", "subcategory": "fitness", "product_type": "yoga mat", "filters": ["6mm thick", "non slip"]}}
+{"query": "fragrance free laundry detergent liquid", "expected_output": {"category": "household", "subcategory": "laundry", "product_type": "laundry detergent", "filters": ["fragrance free", "liquid"]}}
+{"query": "looking for loose pants to jogg in", "expected_output": {"category": "clothing", "subcategory": "activewear", "product_type": "sweatpants", "filters": ["loose"]}}
+{"query": "Need a phone charger 20W", "expected_output": {"category": "electronics", "subcategory": "mobile accessories", "product_type": "phone charger", "filters": ["20W"]}}
+{"query": "cheap sunglasses under $15", "expected_output": {"category": "accessories", "subcategory": "eyewear", "product_type": "sunglasses", "filters": ["under $15"]}}
+{"query": "Where can i get a blender under $50", "expected_output": {"category": "kitchen", "subcategory": "appliances", "product_type": "blender", "filters": ["under $50"]}}
+{"query": "baby onesies 0-3 mo organic", "expected_output": {"category": "baby", "subcategory": "clothing", "product_type": "onesies", "filters": ["0-3 months", "organic"]}}
+{"query": "need shower curtain w/ stripes", "expected_output": {"category": "home", "subcategory": "bathroom", "product_type": "shower curtain", "filters": ["striped"]}}
+{"query": "Trying to find wifi router for 1500 sq ft", "expected_output": {"category": "electronics", "subcategory": "networking", "product_type": "wifi router", "filters": ["coverage 1500 sq ft"]}}
+{"query": "rec me a vegan cookbook for beginners", "expected_output": {"category": "books", "subcategory": "cooking", "product_type": "cookbook", "filters": ["vegan", "beginners"]}}
+{"query": "Foldable bike under 30 lbs", "expected_output": {"category": "sports", "subcategory": "cycling", "product_type": "bicycle", "filters": ["foldable", "under 30 lbs"]}}
+{"query": "need some bluetooth headphs under $50", "expected_output": {"category": "electronics", "subcategory": "audio", "product_type": "headphones", "filters": ["bluetooth", "under $50"]}}
+{"query": "mens running shoes size 10 wide", "expected_output": {"category": "footwear", "subcategory": "athletic", "product_type": "running shoes", "filters": ["men's", "size 10", "wide"]}}
+{"query": "Looking for cast iron skillet 12 inch pre-seasoned", "expected_output": {"category": "kitchen", "subcategory": "cookware", "product_type": "skillet", "filters": ["cast iron", "12 inch", "pre-seasoned"]}}
+{"query": "wireless mouse for gaming", "expected_output": {"category": "electronics", "subcategory": "computer accessories", "product_type": "mouse", "filters": ["wireless", "gaming"]}}
+{"query": "Need curtains blackout 84 inch", "expected_output": {"category": "home", "subcategory": "window treatments", "product_type": "curtains", "filters": ["blackout", "84 inch"]}}
+{"query": "winter jacket waterproof womens small", "expected_output": {"category": "clothing", "subcategory": "outerwear", "product_type": "jacket", "filters": ["winter", "waterproof", "women's", "small"]}}
+{"query": "HDMI cable 10 ft", "expected_output": {"category": "electronics", "subcategory": "cables", "product_type": "HDMI cable", "filters": ["10 ft"]}}
+{"query": "lookin for kids rainboots size 13", "expected_output": {"category": "footwear", "subcategory": "children's", "product_type": "rain boots", "filters": ["kids", "size 13"]}}
+{"query": "Plant pot ceramic 8 inch drainage hole", "expected_output": {"category": "garden", "subcategory": "planters", "product_type": "plant pot", "filters": ["ceramic", "8 inch", "drainage hole"]}}
+{"query": "wheres a cheap desk lamp usb port", "expected_output": {"category": "home", "subcategory": "lighting", "product_type": "desk lamp", "filters": ["cheap", "usb port"]}}
+{"query": "need suitcase carry on size lightweight", "expected_output": {"category": "travel", "subcategory": "luggage", "product_type": "suitcase", "filters": ["carry-on size", "lightweight"]}}
+{"query": "hiking backpack 40L waterproof", "expected_output": {"category": "outdoor", "subcategory": "hiking gear", "product_type": "backpack", "filters": ["40L", "waterproof"]}}
+{"query": "Need bassinet for newborn portable", "expected_output": {"category": "baby", "subcategory": "furniture", "product_type": "bassinet", "filters": ["newborn", "portable"]}}
+{"query": "womens sandals size 8 leather", "expected_output": {"category": "footwear", "subcategory": "women's", "product_type": "sandals", "filters": ["size 8", "leather"]}}
+{"query": "Coffee grinder electric burr", "expected_output": {"category": "kitchen", "subcategory": "small appliances", "product_type": "coffee grinder", "filters": ["electric", "burr"]}}
+{"query": "lookin for air purifier for allergies hepa", "expected_output": {"category": "home", "subcategory": "air quality", "product_type": "air purifier", "filters": ["for allergies", "HEPA"]}}
+{"query": "mens swim trunks quick dry medium", "expected_output": {"category": "clothing", "subcategory": "swimwear", "product_type": "swim trunks", "filters": ["men's", "quick dry", "medium"]}}
+{"query": "Where to get tablet under $200 for kids", "expected_output": {"category": "electronics", "subcategory": "tablets", "product_type": "tablet", "filters": ["under $200", "for kids"]}}
+{"query": "office chair ergonomic adjustable armrests", "expected_output": {"category": "furniture", "subcategory": "office", "product_type": "chair", "filters": ["ergonomic", "adjustable armrests"]}}
+{"query": "Blender bottle 24oz dishwasher safe", "expected_output": {"category": "kitchen", "subcategory": "drinkware", "product_type": "blender bottle", "filters": ["24oz", "dishwasher safe"]}}
+{"query": "need usb c charger 65w gan", "expected_output": {"category": "electronics", "subcategory": "charging", "product_type": "charger", "filters": ["usb-c", "65w", "gan"]}}
+{"query": "digital kitchen scale grams and ounces", "expected_output": {"category": "kitchen", "subcategory": "tools", "product_type": "kitchen scale", "filters": ["digital", "measures grams", "measures ounces"]}}
+{"query": "Mens wool socks pack of 5", "expected_output": {"category": "clothing", "subcategory": "socks", "product_type": "wool socks", "filters": ["men's", "pack of 5"]}}
+{"query": "where to buy reusable shopping bags large", "expected_output": {"category": "home", "subcategory": "storage", "product_type": "shopping bags", "filters": ["reusable", "large"]}}
+{"query": "bluetooth speaker waterproof 20hr battery", "expected_output": {"category": "electronics", "subcategory": "audio", "product_type": "bluetooth speaker", "filters": ["waterproof", "20 hour battery"]}}
+{"query": "Nonstick baking sheet set dishwasher safe", "expected_output": {"category": "kitchen", "subcategory": "bakeware", "product_type": "baking sheet", "filters": ["nonstick", "set", "dishwasher safe"]}}
+{"query": "need pajamas cotton mens xl", "expected_output": {"category": "clothing", "subcategory": "sleepwear", "product_type": "pajamas", "filters": ["cotton", "men's", "XL"]}}
+{"query": "dog toy squeaky chew resistant", "expected_output": {"category": "pet supplies", "subcategory": "dog toys", "product_type": "dog toy", "filters": ["squeaky", "chew resistant"]}}
+{"query": "Looking for bath towels 100% cotton set of 4", "expected_output": {"category": "home", "subcategory": "bath", "product_type": "bath towels", "filters": ["100% cotton", "set of 4"]}}
+{"query": "wireless keyboard and mouse combo rechargeable", "expected_output": {"category": "electronics", "subcategory": "computer accessories", "product_type": "keyboard and mouse combo", "filters": ["wireless", "rechargeable"]}}
+{"query": "Car phone mount dashboard suction cup", "expected_output": {"category": "automotive", "subcategory": "phone accessories", "product_type": "phone mount", "filters": ["for car", "dashboard", "suction cup"]}}
+{"query": "workout leggings with pockets high waist", "expected_output": {"category": "clothing", "subcategory": "activewear", "product_type": "leggings", "filters": ["with pockets", "high waist"]}}
+{"query": "Need portable charger 10000mah usb c", "expected_output": {"category": "electronics", "subcategory": "power banks", "product_type": "portable charger", "filters": ["10000mAh", "usb-c"]}}
+{"query": "kids winter gloves waterproof age 5-6", "expected_output": {"category": "clothing", "subcategory": "accessories", "product_type": "gloves", "filters": ["kids", "winter", "waterproof", "age 5-6"]}}
+{"query": "Flashlight rechargeable 1000 lumens", "expected_output": {"category": "tools", "subcategory": "lighting", "product_type": "flashlight", "filters": ["rechargeable", "1000 lumens"]}}
+{"query": "lookin for food processor 8 cup dishwasher safe", "expected_output": {"category": "kitchen", "subcategory": "appliances", "product_type": "food processor", "filters": ["8 cup", "dishwasher safe"]}}
+{"query": "mens dress shoes brown size 9 leather", "expected_output": {"category": "footwear", "subcategory": "formal", "product_type": "dress shoes", "filters": ["men's", "brown", "size 9", "leather"]}}
+{"query": "Where can i buy yoga block cork set of 2", "expected_output": {"category": "sports", "subcategory": "yoga", "product_type": "yoga block", "filters": ["cork", "set of 2"]}}
+{"query": "shower caddy rust proof tension rod", "expected_output": {"category": "home", "subcategory": "bathroom", "product_type": "shower caddy", "filters": ["rust proof", "tension rod"]}}
+{"query": "Bike helmet adult adjustable LED light", "expected_output": {"category": "sports", "subcategory": "cycling", "product_type": "helmet", "filters": ["adult", "adjustable", "LED light"]}}
+{"query": "need moisturizer spf 30 fragrance free", "expected_output": {"category": "beauty", "subcategory": "skincare", "product_type": "moisturizer", "filters": ["SPF 30", "fragrance free"]}}
+{"query": "stroller lightweight foldable travel", "expected_output": {"category": "baby", "subcategory": "travel gear", "product_type": "stroller", "filters": ["lightweight", "foldable", "travel"]}}
+{"query": "Where to buy laptop backpack 15 inch waterproof", "expected_output": {"category": "bags", "subcategory": "backpacks", "product_type": "laptop backpack", "filters": ["15 inch", "waterproof"]}}
+{"query": "hand mixer 5 speed stainless steel", "expected_output": {"category": "kitchen", "subcategory": "appliances", "product_type": "hand mixer", "filters": ["5 speed", "stainless steel"]}}
+{"query": "Lookin for toddler shoes size 7 velcro", "expected_output": {"category": "footwear", "subcategory": "children's", "product_type": "toddler shoes", "filters": ["size 7", "velcro"]}}
+{"query": "bluetooth earbuds under $30 workout", "expected_output": {"category": "electronics", "subcategory": "audio", "product_type": "earbuds", "filters": ["bluetooth", "under $30", "workout"]}}
+{"query": "mens boxer briefs pack of 6 microfiber", "expected_output": {"category": "clothing", "subcategory": "underwear", "product_type": "boxer briefs", "filters": ["men's", "pack of 6", "microfiber"]}}
+{"query": "Need water bottle 32oz wide mouth", "expected_output": {"category": "sports", "subcategory": "hydration", "product_type": "water bottle", "filters": ["32oz", "wide mouth"]}}
+{"query": "dog collar adjustable medium reflective", "expected_output": {"category": "pet supplies", "subcategory": "dog accessories", "product_type": "dog collar", "filters": ["adjustable", "medium", "reflective"]}}
+{"query": "Computer monitor 27inch 4k hdmi", "expected_output": {"category": "electronics", "subcategory": "computer peripherals", "product_type": "monitor", "filters": ["27 inch", "4K", "HDMI"]}}
+{"query": "need knife set stainless with block", "expected_output": {"category": "kitchen", "subcategory": "cutlery", "product_type": "knife set", "filters": ["stainless steel", "with block"]}}
+{"query": "reading glasses 1.5 strength folding", "expected_output": {"category": "eyewear", "subcategory": "reading glasses", "product_type": "reading glasses", "filters": ["1.5 strength", "folding"]}}
+{"query": "Need pressure cooker 6 quart stainless", "expected_output": {"category": "kitchen", "subcategory": "appliances", "product_type": "pressure cooker", "filters": ["6 quart", "stainless"]}}
+{"query": "womens rain jacket with hood packable", "expected_output": {"category": "clothing", "subcategory": "outerwear", "product_type": "rain jacket", "filters": ["women's", "with hood", "packable"]}}
+{"query": "Desk organizer mesh metal black", "expected_output": {"category": "office", "subcategory": "desk accessories", "product_type": "desk organizer", "filters": ["mesh", "metal", "black"]}}
+{"query": "lookin for protein powder vanilla 2lb", "expected_output": {"category": "health", "subcategory": "supplements", "product_type": "protein powder", "filters": ["vanilla", "2lb"]}}
+{"query": "washable area rug 5x7 low pile", "expected_output": {"category": "home", "subcategory": "flooring", "product_type": "area rug", "filters": ["washable", "5x7", "low pile"]}}
+{"query": "Where to get shower head filter handheld", "expected_output": {"category": "home", "subcategory": "bathroom", "product_type": "shower head", "filters": ["filter", "handheld"]}}
+{"query": "slow cooker programmable 7 quart", "expected_output": {"category": "kitchen", "subcategory": "appliances", "product_type": "slow cooker", "filters": ["programmable", "7 quart"]}}
+{"query": "Electric toothbrush rechargeable timer", "expected_output": {"category": "health", "subcategory": "oral care", "product_type": "toothbrush", "filters": ["electric", "rechargeable", "timer"]}}
+{"query": "need bike lock u lock with cable", "expected_output": {"category": "sports", "subcategory": "cycling", "product_type": "bike lock", "filters": ["u-lock", "with cable"]}}
+{"query": "rain boots women yellow", "expected_output": {"category": "footwear", "subcategory": "boots", "product_type": "rain boots", "filters": ["women's", "yellow"]}}
+{"query": "stainless steel water bottle 32oz", "expected_output": {"category": "drinkware", "subcategory": "water bottles", "product_type": "water bottle", "filters": ["stainless steel", "32oz"]}}
+{"query": "LEGO star wars set under $50", "expected_output": {"category": "toys", "subcategory": "building sets", "product_type": "lego set", "filters": ["star wars", "under $50"]}}
+{"query": "baby monitor with camera nightvision", "expected_output": {"category": "baby", "subcategory": "safety", "product_type": "baby monitor", "filters": ["with camera", "nightvision"]}}
+{"query": "mens slip on sandles size 11", "expected_output": {"category": "footwear", "subcategory": "men's shoes", "product_type": "sandals", "filters": ["men's", "slip on", "size 11"]}}
+{"query": "curtains blackout 84 inch", "expected_output": {"category": "home", "subcategory": "window treatments", "product_type": "curtains", "filters": ["blackout", "84 inch"]}}
+{"query": "usb c charger fast charging", "expected_output": {"category": "electronics", "subcategory": "charging accessories", "product_type": "charger", "filters": ["usb c", "fast charging"]}}
+{"query": "COTTON SHEETS QUEEN SIZE DEEP POCKET", "expected_output": {"category": "bedding", "subcategory": "sheets", "product_type": "bed sheets", "filters": ["cotton", "queen size", "deep pocket"]}}
+{"query": "dog bed washable medium size", "expected_output": {"category": "pets", "subcategory": "dog supplies", "product_type": "dog bed", "filters": ["washable", "medium size"]}}
+{"query": "wirelss keyboard and mouse combo", "expected_output": {"category": "electronics", "subcategory": "computer accessories", "product_type": "keyboard and mouse combo", "filters": ["wireless"]}}
+{"query": "kitchen trash can touchless 13 gallon", "expected_output": {"category": "home", "subcategory": "kitchen", "product_type": "trash can", "filters": ["touchless", "13 gallon"]}}
+{"query": "sun hat womens wide brim upf", "expected_output": {"category": "accessories", "subcategory": "hats", "product_type": "sun hat", "filters": ["women's", "wide brim", "upf"]}}
+{"query": "garden hose 50ft expandable", "expected_output": {"category": "garden", "subcategory": "watering", "product_type": "garden hose", "filters": ["50ft", "expandable"]}}
+{"query": "foldable camping chair with cupholder", "expected_output": {"category": "outdoor", "subcategory": "camping", "product_type": "camping chair", "filters": ["foldable", "with cupholder"]}}
+{"query": "air fryer 6 qt digital", "expected_output": {"category": "kitchen", "subcategory": "small appliances", "product_type": "air fryer", "filters": ["6 qt", "digital"]}}
+{"query": "wall mountd tv bracket swivel 65inch", "expected_output": {"category": "electronics", "subcategory": "tv accessories", "product_type": "tv bracket", "filters": ["wall mounted", "swivel", "65 inch"]}}
+{"query": "toddler pajamas dinosaur 3t", "expected_output": {"category": "clothing", "subcategory": "children's clothing", "product_type": "pajamas", "filters": ["toddler", "dinosaur", "3t"]}}
+{"query": "silky pillowcase satin king size", "expected_output": {"category": "bedding", "subcategory": "pillowcases", "product_type": "pillowcase", "filters": ["silky", "satin", "king size"]}}
+{"query": "rechargble batteries aa 8 pack", "expected_output": {"category": "electronics", "subcategory": "batteries", "product_type": "aa batteries", "filters": ["rechargeable", "8 pack"]}}
+{"query": "makeup brush set synthetic vegan", "expected_output": {"category": "beauty", "subcategory": "makeup tools", "product_type": "makeup brush set", "filters": ["synthetic", "vegan"]}}

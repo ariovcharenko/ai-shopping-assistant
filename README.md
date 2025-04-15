@@ -109,7 +109,7 @@ If the client can't connect to the server:
 
 ## Data Storage
 
-The application stores evaluation data in `server/data/eval_dataset.jsonl`. This file is created automatically if it doesn't exist.
+The application stores evaluation data in `server/data/prompt_history.jsonl`. This file is created automatically if it doesn't exist.
 
 ## API Endpoints
 

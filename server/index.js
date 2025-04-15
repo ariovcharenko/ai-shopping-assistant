@@ -13,24 +13,24 @@ if (!fs.existsSync(dataDir)) {
   fs.mkdirSync(dataDir, { recursive: true });
 }
 
-// Check if eval_dataset.jsonl exists, create it if not
-const evalDatasetPath = path.join(dataDir, 'eval_dataset.jsonl');
+// Check if prompt_history.jsonl exists, create it if not
+const evalDatasetPath = path.join(dataDir, 'prompt_history.jsonl');
 if (!fs.existsSync(evalDatasetPath)) {
-  console.log('Creating empty eval_dataset.jsonl file');
+  console.log('Creating empty prompt_history.jsonl file');
   fs.writeFileSync(evalDatasetPath, '', 'utf8');
 }
 
 // Import OpenAIService
 let analyzeSearchQuery, logUserInteraction;
 try {
-  const OpenAIService = require('./OpenAIService');
+  const OpenAIService = require('./openaiService');
   analyzeSearchQuery = OpenAIService.analyzeSearchQuery;
   logUserInteraction = OpenAIService.logUserInteraction;
   console.log('Successfully imported OpenAIService');
 } catch (error) {
   console.error('Error importing OpenAIService:', error.message);
   try {
-    const mockService = require('./mockaiService.js.js');
+    const mockService = require('./mockaiService.js');
     analyzeSearchQuery = mockService.analyzeSearchQuery;
     logUserInteraction = mockService.logUserInteraction;
     console.log('Using mockaiService as fallback');

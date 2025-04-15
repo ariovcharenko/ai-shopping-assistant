@@ -7438,6 +7438,253 @@ const productCatalog = [
     subcategory: "cooling",
     product_type: "desk fan",
     filters: ["USB", "portable", "adjustable speed"]
+  },
+  {
+    id: 1001,
+    name: "Compact Digital Air Fryer 4.5Qt",
+    product_type: "air fryer",
+    category: "kitchen",
+    subcategory: "appliances",
+    filters: ["digital controls", "nonstick basket", "4.5 quart", "compact"]
+  },
+  {
+    id: 1002,
+    name: "Stainless Steel Air Fryer XL 6.8Qt",
+    product_type: "air fryer",
+    category: "kitchen",
+    subcategory: "appliances",
+    filters: ["stainless steel", "6.8 quart", "extra large", "easy to clean"]
+  },
+  {
+    id: 1003,
+    name: "Dual Basket Smart Air Fryer 7Qt",
+    product_type: "air fryer",
+    category: "kitchen",
+    subcategory: "appliances",
+    filters: ["dual basket", "touchscreen", "7 quart", "preset modes"]
+  },
+  {
+    id: 1004,
+    name: "Oil-Less Compact Air Fryer 2Qt",
+    product_type: "air fryer",
+    category: "kitchen",
+    subcategory: "appliances",
+    filters: ["2 quart", "oil-less", "compact", "dial timer"]
+  },
+  {
+    id: 1005,
+    name: "Family Size Air Fryer Oven Combo",
+    product_type: "air fryer",
+    category: "kitchen",
+    subcategory: "appliances",
+    filters: ["oven combo", "family size", "multi-function", "large capacity"]
+  },
+  
+  {
+    id: 1006,
+    name: "LEGO Classic Bricks and Animals 500pcs",
+    product_type: "lego set",
+    category: "toys",
+    subcategory: "building sets",
+    filters: ["500 pieces", "classic", "ages 5+", "animal theme"]
+  },
+  {
+    id: 1007,
+    name: "LEGO City Fire Station Playset",
+    product_type: "lego set",
+    category: "toys",
+    subcategory: "building sets",
+    filters: ["fire station", "vehicle", "ages 6+", "interactive"]
+  },
+  {
+    id: 1008,
+    name: "LEGO Friends Treehouse Set 600pcs",
+    product_type: "lego set",
+    category: "toys",
+    subcategory: "building sets",
+    filters: ["600 pieces", "treehouse", "creative play", "ages 7+"]
+  },
+  {
+    id: 1009,
+    name: "LEGO Technic Monster Truck 2-in-1",
+    product_type: "lego set",
+    category: "toys",
+    subcategory: "building sets",
+    filters: ["technic", "monster truck", "2-in-1", "engineering build"]
+  },
+  {
+    id: 1010,
+    name: "LEGO Star Wars TIE Fighter 432pcs",
+    product_type: "lego set",
+    category: "toys",
+    subcategory: "building sets",
+    filters: ["star wars", "TIE fighter", "collectible", "ages 8+"]
+  },
+  
+  {
+    id: 1011,
+    name: "Squeaky Plush Duck Dog Toy",
+    product_type: "dog toy",
+    category: "pet supplies",
+    subcategory: "dog toys",
+    filters: ["plush", "squeaky", "medium dogs", "chew-friendly"]
+  },
+  {
+    id: 1012,
+    name: "Durable Rope Tug Dog Toy",
+    product_type: "dog toy",
+    category: "pet supplies",
+    subcategory: "dog toys",
+    filters: ["rope", "tug of war", "chew-resistant", "large dogs"]
+  },
+  {
+    id: 1013,
+    name: "Interactive Treat Puzzle Dog Toy",
+    product_type: "dog toy",
+    category: "pet supplies",
+    subcategory: "dog toys",
+    filters: ["interactive", "treat dispensing", "brain stimulation", "non-slip base"]
+  },
+  {
+    id: 1014,
+    name: "Tennis Ball Multipack for Dogs",
+    product_type: "dog toy",
+    category: "pet supplies",
+    subcategory: "dog toys",
+    filters: ["tennis ball", "pack of 6", "non-toxic", "fetch"]
+  },
+  {
+    id: 1015,
+    name: "Rubber Chew Bone with Nubs",
+    product_type: "dog toy",
+    category: "pet supplies",
+    subcategory: "dog toys",
+    filters: ["rubber", "chew-safe", "nubs", "teeth cleaning"]
+  },
+  
+  {
+    id: 1016,
+    name: "Wide Brim Straw Sun Hat with Chin Strap",
+    product_type: "sun hat",
+    category: "accessories",
+    subcategory: "hats",
+    filters: ["wide brim", "straw", "chin strap", "UV protection"]
+  },
+  {
+    id: 1017,
+    name: "Packable Floppy Sun Hat for Travel",
+    product_type: "sun hat",
+    category: "accessories",
+    subcategory: "hats",
+    filters: ["packable", "lightweight", "beach", "travel"]
+  },
+  {
+    id: 1018,
+    name: "UPF 50+ Sun Hat with Neck Flap",
+    product_type: "sun hat",
+    category: "accessories",
+    subcategory: "hats",
+    filters: ["UPF 50+", "neck flap", "adjustable", "for hiking"]
+  },
+  {
+    id: 1019,
+    name: "Foldable Canvas Sun Hat with Bow",
+    product_type: "sun hat",
+    category: "accessories",
+    subcategory: "hats",
+    filters: ["foldable", "canvas", "decorative bow", "casual"]
+  },
+  {
+    id: 1020,
+    name: "Boho Crochet Sun Hat for Women",
+    product_type: "sun hat",
+    category: "accessories",
+    subcategory: "hats",
+    filters: ["crochet", "boho style", "breathable", "adjustable"]
+  },
+  
+  {
+    id: 1021,
+    name: "Soft Makeup Brush Set 10-Piece",
+    product_type: "makeup brush set",
+    category: "beauty",
+    subcategory: "tools",
+    filters: ["10-piece", "synthetic bristles", "for foundation", "soft touch"]
+  },
+  {
+    id: 1022,
+    name: "Professional Makeup Brushes with Case",
+    product_type: "makeup brush set",
+    category: "beauty",
+    subcategory: "tools",
+    filters: ["professional", "travel case", "multi-use", "for contour"]
+  },
+  {
+    id: 1023,
+    name: "Eco-Friendly Bamboo Makeup Brush Kit",
+    product_type: "makeup brush set",
+    category: "beauty",
+    subcategory: "tools",
+    filters: ["bamboo", "eco-friendly", "5-piece", "compact"]
+  },
+  {
+    id: 1024,
+    name: "Rose Gold Makeup Brush Set 12-Pack",
+    product_type: "makeup brush set",
+    category: "beauty",
+    subcategory: "tools",
+    filters: ["12-pack", "rose gold", "for eyeshadow", "luxury"]
+  },
+  {
+    id: 1025,
+    name: "Makeup Brushes with Silicone Blender",
+    product_type: "makeup brush set",
+    category: "beauty",
+    subcategory: "tools",
+    filters: ["brush & blender", "blending sponge", "foundation", "compact"]
+  },
+  
+  {
+    id: 1026,
+    name: "Sweat-Wicking High-Rise Sweatpants",
+    product_type: "sweatpants",
+    category: "clothing",
+    subcategory: "activewear",
+    filters: ["sweat-wicking", "high-rise", "drawstring", "athletic"]
+  },
+  {
+    id: 1027,
+    name: "Fleece-Lined Jogger Sweatpants",
+    product_type: "sweatpants",
+    category: "clothing",
+    subcategory: "loungewear",
+    filters: ["fleece-lined", "elastic cuffs", "winter", "soft"]
+  },
+  {
+    id: 1028,
+    name: "Cotton Relaxed Fit Sweatpants",
+    product_type: "sweatpants",
+    category: "clothing",
+    subcategory: "basics",
+    filters: ["cotton", "relaxed fit", "side pockets", "adjustable waist"]
+  },
+  {
+    id: 1029,
+    name: "Cuffed Sweatpants with Zip Pockets",
+    product_type: "sweatpants",
+    category: "clothing",
+    subcategory: "streetwear",
+    filters: ["cuffed", "zip pockets", "slim fit", "modern style"]
+  },
+  {
+    id: 1030,
+    name: "French Terry Lounge Sweatpants",
+    product_type: "sweatpants",
+    category: "clothing",
+    subcategory: "loungewear",
+    filters: ["french terry", "lounge", "tapered", "soft material"]
   }
 
 ];
+
+module.exports = productCatalog;

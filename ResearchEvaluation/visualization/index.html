@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Evaluation Visualization</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <div id="root" class="container mx-auto p-4"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        function App() {
+            const [matchLog, setMatchLog] = useState([]);
+            const [summary, setSummary] = useState(null);
+            const [missingTypes, setMissingTypes] = useState(null);
+            const [loading, setLoading] = useState(true);
+            const [error, setError] = useState(null);
+            const [sortField, setSortField] = useState('query');
+            const [sortDirection, setSortDirection] = useState('asc');
+            const [filterTag, setFilterTag] = useState('all');
+            const [searchQuery, setSearchQuery] = useState('');
+
+            useEffect(() => {
+                const fetchData = async () => {
+                    try {
+                        setLoading(true);
+                        
+                        // Load match log
+                        const matchLogResponse = await fetch('/server/data/datasets/match-log.json');
+                        if (!matchLogResponse.ok) throw new Error('Failed to load match log');
+                        const matchLogData = await matchLogResponse.json();
+                        setMatchLog(matchLogData);
+                        
+                        // Load summary
+                        try {
+                            const summaryResponse = await fetch('/ResearchEvaluation/evaluation-summary.json');
+                            if (summaryResponse.ok) {
+                                const summaryData = await summaryResponse.json();
+                                setSummary(summaryData);
+                            }
+                        } catch (e) {
+                            console.warn('Summary file not found, this is expected on first run');
+                        }
+                        
+                        // Load missing types
+                        try {
+                            const missingTypesResponse = await fetch('/ResearchEvaluation/missing_product_types.json');
+                            if (missingTypesResponse.ok) {
+                                const missingTypesData = await missingTypesResponse.json();
+                                setMissingTypes(missingTypesData);
+                            }
+                        } catch (e) {
+                            console.warn('Missing types file not found, this is expected on first run');
+                        }
+                        
+                        setLoading(false);
+                    } catch (err) {
+                        setError(err.message);
+                        setLoading(false);
+                    }
+                };
+                
+                fetchData();
+            }, []);
+
+            // Load tagged log if available
+            const [taggedLog, setTaggedLog] = useState([]);
+            useEffect(() => {
+                const fetchTaggedLog = async () => {
+                    try {
+                        const response = await fetch('/ResearchEvaluation/eval-tagged-log.jsonl');
+                        if (response.ok) {
+                            const text = await response.text();
+                            const lines = text.trim().split('\n');
+                            const parsed = lines.map(line => JSON.parse(line));
+                            setTaggedLog(parsed);
+                        }
+                    } catch (e) {
+                        console.warn('Tagged log file not found, this is expected on first run');
+                    }
+                };
+                
+                fetchTaggedLog();
+            }, []);
+
+            const handleSort = (field) => {
+                if (sortField === field) {
+                    setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+                } else {
+                    setSortField(field);
+                    setSortDirection('asc');
+                }
+            };
+
+            const sortedData = [...matchLog].sort((a, b) => {
+                let aValue = a[sortField];
+                let bValue = b[sortField];
+                
+                if (sortField === 'matched_count' || sortField === 'match_score') {
+                    aValue = Number(aValue);
+                    bValue = Number(bValue);
+                }
+                
+                if (aValue < bValue) return sortDirection === 'asc' ? -1 : 1;
+                if (aValue > bValue) return sortDirection === 'asc' ? 1 : -1;
+                return 0;
+            });
+
+            // Filter by tag if tagged log is available
+            const filteredData = sortedData.filter(item => {
+                // Apply tag filter if tagged log is available
+                if (taggedLog.length > 0 && filterTag !== 'all') {
+                    const taggedItem = taggedLog.find(t => t.query === item.query);
+                    if (!taggedItem || !taggedItem.tags.includes(filterTag)) {
+                        return false;
+                    }
+                }
+                
+                // Apply search filter
+                if (searchQuery) {
+                    const query = searchQuery.toLowerCase();
+                    return (
+                        item.query.toLowerCase().includes(query) ||
+                        item.expected_product_type.toLowerCase().includes(query) ||
+                        (item.returned_product_types && item.returned_product_types.some(t => t.toLowerCase().includes(query)))
+                    );
+                }
+                
+                return true;
+            });
+
+            // Extract all unique tags from tagged log
+            const allTags = taggedLog.length > 0 
+                ? ['all', ...new Set(taggedLog.flatMap(item => item.tags))]
+                : ['all'];
+
+            if (loading) return <div className="text-center py-10">Loading evaluation data...</div>;
+            if (error) return <div className="text-center py-10 text-red-600">Error: {error}</div>;
+
+            return (
+                <div className="space-y-8">
+                    <header className="bg-white shadow rounded-lg p-6">
+                        <h1 className="text-3xl font-bold text-gray-800">Search Evaluation Results</h1>
+                        <p className="text-gray-600 mt-2">
+                            Analyze the performance of your product search engine
+                        </p>
+                    </header>
+
+                    {summary && (
+                        <section className="bg-white shadow rounded-lg p-6">
+                            <h2 className="text-xl font-semibold mb-4">Summary Metrics</h2>
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                                <div className="bg-blue-50 p-4 rounded-lg">
+                                    <p className="text-sm text-blue-600">Total Queries</p>
+                                    <p className="text-2xl font-bold">{summary.total_queries}</p>
+                                </div>
+                                <div className="bg-green-50 p-4 rounded-lg">
+                                    <p className="text-sm text-green-600">Queries with Matches</p>
+                                    <p className="text-2xl font-bold">{summary.queries_with_matches} ({summary.match_percentage.toFixed(1)}%)</p>
+                                </div>
+                                <div className="bg-purple-50 p-4 rounded-lg">
+                                    <p className="text-sm text-purple-600">Avg Matches per Query</p>
+                                    <p className="text-2xl font-bold">{summary.avg_matches_per_query.toFixed(2)}</p>
+                                </div>
+                                <div className="bg-yellow-50 p-4 rounded-lg">
+                                    <p className="text-sm text-yellow-600">Unmatched Product Types</p>
+                                    <p className="text-2xl font-bold">{summary.top_unmatched_product_types.length}</p>
+                                </div>
+                            </div>
+                        </section>
+                    )}
+
+                    {missingTypes && (
+                        <section className="bg-white shadow rounded-lg p-6">
+                            <h2 className="text-xl font-semibold mb-4">Missing Product Types</h2>
+                            <p className="text-gray-600 mb-4">
+                                Product types expected in queries but not found in the catalog:
+                            </p>
+                            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+                                {missingTypes.missing_product_types.map(type => (
+                                    <div key={type} className="bg-red-50 p-2 rounded">
+                                        <span className="text-red-600">{type}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </section>
+                    )}
+
+                    <section className="bg-white shadow rounded-lg p-6">
+                        <h2 className="text-xl font-semibold mb-4">Query Results</h2>
+                        
+                        <div className="flex flex-col md:flex-row gap-4 mb-4">
+                            <div className="flex-1">
+                                <input
+                                    type="text"
+                                    placeholder="Search queries..."
+                                    className="w-full p-2 border rounded"
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                />
+                            </div>
+                            
+                            {taggedLog.length > 0 && (
+                                <div>
+                                    <select 
+                                        className="p-2 border rounded"
+                                        value={filterTag}
+                                        onChange={(e) => setFilterTag(e.target.value)}
+                                    >
+                                        {allTags.map(tag => (
+                                            <option key={tag} value={tag}>
+                                                {tag === 'all' ? 'All Tags' : tag}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                            )}
+                        </div>
+                        
+                        <div className="overflow-x-auto">
+                            <table className="min-w-full bg-white">
+                                <thead>
+                                    <tr className="bg-gray-100">
+                                        <th className="p-3 text-left cursor-pointer" onClick={() => handleSort('query')}>
+                                            Query {sortField === 'query' && (sortDirection === 'asc' ? '↑' : '↓')}
+                                        </th>
+                                        <th className="p-3 text-left cursor-pointer" onClick={() => handleSort('expected_product_type')}>
+                                            Expected Type {sortField === 'expected_product_type' && (sortDirection === 'asc' ? '↑' : '↓')}
+                                        </th>
+                                        <th className="p-3 text-left cursor-pointer" onClick={() => handleSort('matched_count')}>
+                                            Matches {sortField === 'matched_count' && (sortDirection === 'asc' ? '↑' : '↓')}
+                                        </th>
+                                        <th className="p-3 text-left">Returned Types</th>
+                                        {taggedLog.length > 0 && <th className="p-3 text-left">Tags</th>}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {filteredData.map((item, index) => {
+                                        const taggedItem = taggedLog.find(t => t.query === item.query);
+                                        
+                                        return (
+                                            <tr key={index} className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}>
+                                                <td className="p-3 border-t">{item.query}</td>
+                                                <td className="p-3 border-t">{item.expected_product_type}</td>
+                                                <td className="p-3 border-t">
+                                                    <span className={`px-2 py-1 rounded ${item.matched_count > 0 ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+                                                        {item.matched_count}
+                                                    </span>
+                                                </td>
+                                                <td className="p-3 border-t">
+                                                    {item.returned_product_types && item.returned_product_types.length > 0 ? (
+                                                        <div className="flex flex-wrap gap-1">
+                                                            {item.returned_product_types.map((type, i) => (
+                                                                <span key={i} className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">
+                                                                    {type}
+                                                                </span>
+                                                            ))}
+                                                        </div>
+                                                    ) : (
+                                                        <span className="text-gray-400">None</span>
+                                                    )}
+                                                </td>
+                                                {taggedLog.length > 0 && (
+                                                    <td className="p-3 border-t">
+                                                        {taggedItem && taggedItem.tags && (
+                                                            <div className="flex flex-wrap gap-1">
+                                                                {taggedItem.tags.map((tag, i) => (
+                                                                    <span key={i} className={`px-2 py-1 rounded text-xs ${
+                                                                        tag.includes('match') ? 'bg-green-100 text-green-800' : 
+                                                                        tag.includes('not in catalog') ? 'bg-red-100 text-red-800' : 
+                                                                        'bg-yellow-100 text-yellow-800'
+                                                                    }`}>
+                                                                        {tag}
+                                                                    </span>
+                                                                ))}
+                                                            </div>
+                                                        )}
+                                                    </td>
+                                                )}
+                                            </tr>
+                                        );
+                                    })}
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        {filteredData.length === 0 && (
+                            <div className="text-center py-4 text-gray-500">
+                                No results match your filters
+                            </div>
+                        )}
+                    </section>
+                </div>
+            );
+        }
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>

@@ -13,8 +13,8 @@
     "matched_count": 3,
     "expected_product_type": "mattress",
     "returned_product_types": [
-      "mattress",
-      "crib mattress"
+      "crib mattress",
+      "mattress"
     ],
     "match_score": 1
   },
@@ -23,14 +23,14 @@
     "matched_count": 17,
     "expected_product_type": "hiking boots",
     "returned_product_types": [
-      "work boots",
-      "hiking socks",
-      "hiking boots",
       "ankle boots",
-      "hiking pants",
       "snow boots",
+      "hiking socks",
+      "hiking pants",
       "rain boots",
-      "hiking shoes"
+      "hiking shoes",
+      "work boots",
+      "hiking boots"
     ],
     "match_score": 1
   },
@@ -39,11 +39,11 @@
     "matched_count": 12,
     "expected_product_type": "frying pan",
     "returned_product_types": [
-      "muffin pan",
       "griddle pan",
-      "frying pan",
       "baking pan",
-      "cake pan"
+      "cake pan",
+      "frying pan",
+      "muffin pan"
     ],
     "match_score": 1
   },
@@ -53,8 +53,8 @@
     "expected_product_type": "t-shirt",
     "returned_product_types": [
       "dress shirt",
-      "sleep shirt",
       "polo shirt",
+      "sleep shirt",
       "henley shirt",
       "t-shirt"
     ],
@@ -66,10 +66,10 @@
     "expected_product_type": "desk lamp",
     "returned_product_types": [
       "headlamp",
-      "standing desk",
       "desk lamp",
+      "desk fan",
       "desk converter",
-      "desk fan"
+      "standing desk"
     ],
     "match_score": 1
   },
@@ -88,9 +88,9 @@
     "matched_count": 5,
     "expected_product_type": "external hard drive",
     "returned_product_types": [
+      "electric screwdriver",
       "flash drive",
       "screwdriver",
-      "electric screwdriver",
       "external hard drive"
     ],
     "match_score": 1
@@ -101,10 +101,10 @@
     "expected_product_type": "yoga mat",
     "returned_product_types": [
       "yoga socks",
-      "bath mat",
-      "yoga mat",
       "yoga towel",
-      "feeding mat"
+      "feeding mat",
+      "yoga mat",
+      "bath mat"
     ],
     "match_score": 1
   },
@@ -113,9 +113,9 @@
     "matched_count": 3,
     "expected_product_type": "laundry detergent",
     "returned_product_types": [
-      "dry dog food",
+      "laundry detergent",
       "laundry pods",
-      "laundry detergent"
+      "dry dog food"
     ],
     "match_score": 1
   },
@@ -140,8 +140,8 @@
     "matched_count": 2,
     "expected_product_type": "sunglasses",
     "returned_product_types": [
-      "sunglasses",
-      "reading glasses"
+      "reading glasses",
+      "sunglasses"
     ],
     "match_score": 1
   },
@@ -204,8 +204,8 @@
     "matched_count": 6,
     "expected_product_type": "headphones",
     "returned_product_types": [
-      "headphones",
-      "sleep headphones"
+      "sleep headphones",
+      "headphones"
     ],
     "match_score": 1
   },
@@ -215,10 +215,10 @@
     "expected_product_type": "running shoes",
     "returned_product_types": [
       "running shorts",
-      "canvas shoes",
-      "running shoes",
       "training shoes",
-      "hiking shoes"
+      "canvas shoes",
+      "hiking shoes",
+      "running shoes"
     ],
     "match_score": 1
   },
@@ -236,9 +236,9 @@
     "matched_count": 9,
     "expected_product_type": "mouse",
     "returned_product_types": [
-      "mouse",
       "mouse pad",
-      "gaming mouse"
+      "gaming mouse",
+      "mouse"
     ],
     "match_score": 1
   },
@@ -257,11 +257,11 @@
     "expected_product_type": "jacket",
     "returned_product_types": [
       "fleece jacket",
-      "leather jacket",
-      "denim jacket",
-      "rain jacket",
       "puffer jacket",
-      "jacket"
+      "leather jacket",
+      "jacket",
+      "rain jacket",
+      "denim jacket"
     ],
     "match_score": 1
   },
@@ -280,9 +280,9 @@
     "expected_product_type": "rain boots",
     "returned_product_types": [
       "work boots",
-      "rain boots",
       "hiking boots",
-      "rain jacket"
+      "rain jacket",
+      "rain boots"
     ],
     "match_score": 1
   },
@@ -301,9 +301,9 @@
     "matched_count": 10,
     "expected_product_type": "desk lamp",
     "returned_product_types": [
+      "lap desk",
       "desk fan",
-      "desk lamp",
-      "lap desk"
+      "desk lamp"
     ],
     "match_score": 1
   },
@@ -321,8 +321,8 @@
     "matched_count": 4,
     "expected_product_type": "backpack",
     "returned_product_types": [
-      "ice pack",
       "backpack",
+      "ice pack",
       "school backpack",
       "laptop backpack"
     ],
@@ -369,9 +369,9 @@
     "matched_count": 5,
     "expected_product_type": "swim trunks",
     "returned_product_types": [
-      "swim trunks",
       "swimsuit",
-      "swim shorts"
+      "swim shorts",
+      "swim trunks"
     ],
     "match_score": 1
   },
@@ -390,8 +390,8 @@
     "matched_count": 6,
     "expected_product_type": "chair",
     "returned_product_types": [
-      "high chair",
       "chair",
+      "high chair",
       "office chair"
     ],
     "match_score": 1
@@ -401,8 +401,8 @@
     "matched_count": 4,
     "expected_product_type": "blender bottle",
     "returned_product_types": [
-      "water bottle",
       "blender bottle",
+      "water bottle",
       "baby bottles"
     ],
     "match_score": 1
@@ -414,8 +414,8 @@
     "returned_product_types": [
       "wireless charger",
       "phone charger",
-      "charger",
-      "portable charger"
+      "portable charger",
+      "charger"
     ],
     "match_score": 1
   },
@@ -425,10 +425,10 @@
     "expected_product_type": "kitchen scale",
     "returned_product_types": [
       "smart scale",
-      "bathroom scale",
-      "kitchen scale",
       "kitchen timer",
-      "luggage scale"
+      "kitchen scale",
+      "luggage scale",
+      "bathroom scale"
     ],
     "match_score": 1
   },
@@ -437,10 +437,10 @@
     "matched_count": 4,
     "expected_product_type": "wool socks",
     "returned_product_types": [
-      "wool coat",
       "athletic socks",
-      "hiking socks",
-      "yoga socks"
+      "wool coat",
+      "yoga socks",
+      "hiking socks"
     ],
     "match_score": 1
   },
@@ -459,8 +459,8 @@
     "matched_count": 11,
     "expected_product_type": "bluetooth speaker",
     "returned_product_types": [
-      "bluetooth speaker",
       "Bluetooth speaker",
+      "bluetooth speaker",
       "shower speaker",
       "portable speaker"
     ],
@@ -471,9 +471,9 @@
     "matched_count": 9,
     "expected_product_type": "baking sheet",
     "returned_product_types": [
-      "baking mat",
       "baking mats",
       "baking pan",
+      "baking mat",
       "baking sheet"
     ],
     "match_score": 1
@@ -490,20 +490,22 @@
   },
   {
     "query": "dog toy squeaky chew resistant",
-    "matched_count": 0,
+    "matched_count": 3,
     "expected_product_type": "dog toy",
-    "returned_product_types": [],
-    "match_score": 0
+    "returned_product_types": [
+      "dog toy"
+    ],
+    "match_score": 1
   },
   {
     "query": "Looking for bath towels 100% cotton set of 4",
     "matched_count": 7,
     "expected_product_type": "bath towels",
     "returned_product_types": [
-      "hooded towel",
       "bath towels",
-      "dish towels",
       "bath toy",
+      "dish towels",
+      "hooded towel",
       "kitchen towels"
     ],
     "match_score": 1
@@ -513,10 +515,10 @@
     "matched_count": 11,
     "expected_product_type": "keyboard and mouse combo",
     "returned_product_types": [
-      "mouse",
       "mouse pad",
+      "keyboard",
       "gaming mouse",
-      "keyboard"
+      "mouse"
     ],
     "match_score": 1
   },
@@ -535,8 +537,8 @@
     "matched_count": 3,
     "expected_product_type": "leggings",
     "returned_product_types": [
-      "yoga leggings",
-      "leggings"
+      "leggings",
+      "yoga leggings"
     ],
     "match_score": 1
   },
@@ -547,8 +549,8 @@
     "returned_product_types": [
       "wireless charger",
       "phone charger",
-      "charger",
-      "portable charger"
+      "portable charger",
+      "charger"
     ],
     "match_score": 1
   },
@@ -566,9 +568,9 @@
     "matched_count": 5,
     "expected_product_type": "flashlight",
     "returned_product_types": [
-      "book light",
-      "flashlight",
       "night light",
+      "flashlight",
+      "book light",
       "closet light"
     ],
     "match_score": 1
@@ -587,15 +589,15 @@
     "matched_count": 20,
     "expected_product_type": "dress shoes",
     "returned_product_types": [
-      "canvas shoes",
-      "dress shoes",
+      "maxi dress",
       "dress shirt",
       "dress pants",
-      "running shoes",
-      "maxi dress",
+      "shoe organizer",
       "training shoes",
+      "dress shoes",
+      "canvas shoes",
       "hiking shoes",
-      "shoe organizer"
+      "running shoes"
     ],
     "match_score": 1
   },
@@ -651,12 +653,12 @@
     "matched_count": 8,
     "expected_product_type": "laptop backpack",
     "returned_product_types": [
-      "school backpack",
-      "ice pack",
-      "laptop backpack",
-      "laptop",
       "backpack",
-      "laptop sleeve"
+      "laptop",
+      "school backpack",
+      "laptop sleeve",
+      "ice pack",
+      "laptop backpack"
     ],
     "match_score": 1
   },
@@ -665,8 +667,8 @@
     "matched_count": 5,
     "expected_product_type": "hand mixer",
     "returned_product_types": [
-      "hand mixer",
-      "stand mixer"
+      "stand mixer",
+      "hand mixer"
     ],
     "match_score": 1
   },
@@ -694,8 +696,8 @@
     "matched_count": 7,
     "expected_product_type": "boxer briefs",
     "returned_product_types": [
-      "boxer briefs",
-      "briefs"
+      "briefs",
+      "boxer briefs"
     ],
     "match_score": 1
   },
@@ -710,9 +712,10 @@
   },
   {
     "query": "dog collar adjustable medium reflective",
-    "matched_count": 7,
+    "matched_count": 8,
     "expected_product_type": "dog collar",
     "returned_product_types": [
+      "dog toy",
       "dog collar",
       "dog harness"
     ],
@@ -734,8 +737,8 @@
     "returned_product_types": [
       "dumbbell set",
       "knife strip",
-      "knife set",
-      "measuring set"
+      "measuring set",
+      "knife set"
     ],
     "match_score": 1
   },
@@ -744,8 +747,8 @@
     "matched_count": 2,
     "expected_product_type": "reading glasses",
     "returned_product_types": [
-      "sunglasses",
-      "reading glasses"
+      "reading glasses",
+      "sunglasses"
     ],
     "match_score": 1
   },
@@ -754,10 +757,10 @@
     "matched_count": 11,
     "expected_product_type": "pressure cooker",
     "returned_product_types": [
-      "egg cooker",
       "french press",
-      "slow cooker",
-      "pressure cooker"
+      "pressure cooker",
+      "egg cooker",
+      "slow cooker"
     ],
     "match_score": 1
   },
@@ -766,16 +769,16 @@
     "matched_count": 24,
     "expected_product_type": "rain jacket",
     "returned_product_types": [
+      "training pants",
+      "raincoat",
+      "training shoes",
       "fleece jacket",
       "leather jacket",
-      "denim jacket",
-      "rain jacket",
-      "training pants",
-      "puffer jacket",
       "rain boots",
-      "training shoes",
+      "puffer jacket",
       "jacket",
-      "raincoat"
+      "rain jacket",
+      "denim jacket"
     ],
     "match_score": 1
   },
@@ -820,8 +823,8 @@
     "matched_count": 8,
     "expected_product_type": "slow cooker",
     "returned_product_types": [
-      "slow cooker",
-      "pressure cooker"
+      "pressure cooker",
+      "slow cooker"
     ],
     "match_score": 1
   },
@@ -830,9 +833,9 @@
     "matched_count": 12,
     "expected_product_type": "toothbrush",
     "returned_product_types": [
+      "kids toothbrush",
       "facial brush",
       "toothbrush",
-      "kids toothbrush",
       "toothbrush heads"
     ],
     "match_score": 1
@@ -853,13 +856,13 @@
     "matched_count": 21,
     "expected_product_type": "rain boots",
     "returned_product_types": [
-      "work boots",
-      "rain jacket",
-      "hiking boots",
       "ankle boots",
-      "rain boots",
+      "raincoat",
       "training shoes",
-      "raincoat"
+      "rain boots",
+      "rain jacket",
+      "work boots",
+      "hiking boots"
     ],
     "match_score": 1
   },
@@ -874,10 +877,12 @@
   },
   {
     "query": "LEGO star wars set under $50",
-    "matched_count": 0,
+    "matched_count": 1,
     "expected_product_type": "lego set",
-    "returned_product_types": [],
-    "match_score": 0
+    "returned_product_types": [
+      "lego set"
+    ],
+    "match_score": 1
   },
   {
     "query": "baby monitor with camera nightvision",
@@ -912,9 +917,9 @@
     "matched_count": 4,
     "expected_product_type": "charger",
     "returned_product_types": [
-      "charger",
       "wireless charger",
-      "car charger"
+      "car charger",
+      "charger"
     ],
     "match_score": 1
   },
@@ -929,12 +934,13 @@
   },
   {
     "query": "dog bed washable medium size",
-    "matched_count": 4,
+    "matched_count": 5,
     "expected_product_type": "dog bed",
     "returned_product_types": [
+      "dog toy",
       "dog collar",
-      "dog bed",
-      "dog harness"
+      "dog harness",
+      "dog bed"
     ],
     "match_score": 1
   },
@@ -943,10 +949,10 @@
     "matched_count": 11,
     "expected_product_type": "keyboard and mouse combo",
     "returned_product_types": [
-      "mouse",
       "mouse pad",
+      "keyboard",
       "gaming mouse",
-      "keyboard"
+      "mouse"
     ],
     "match_score": 1
   },
@@ -962,10 +968,12 @@
   },
   {
     "query": "sun hat womens wide brim upf",
-    "matched_count": 0,
+    "matched_count": 2,
     "expected_product_type": "sun hat",
-    "returned_product_types": [],
-    "match_score": 0
+    "returned_product_types": [
+      "sun hat"
+    ],
+    "match_score": 1
   },
   {
     "query": "garden hose 50ft expandable",
@@ -988,21 +996,23 @@
   },
   {
     "query": "air fryer 6 qt digital",
-    "matched_count": 0,
+    "matched_count": 1,
     "expected_product_type": "air fryer",
-    "returned_product_types": [],
-    "match_score": 0
+    "returned_product_types": [
+      "air fryer"
+    ],
+    "match_score": 1
   },
   {
     "query": "wall mountd tv bracket swivel 65inch",
     "matched_count": 8,
     "expected_product_type": "tv bracket",
     "returned_product_types": [
-      "smart TV",
-      "TV mount",
-      "spice rack",
+      "bike rack",
       "coat rack",
-      "bike rack"
+      "spice rack",
+      "smart TV",
+      "TV mount"
     ],
     "match_score": 1
   },
@@ -1031,9 +1041,11 @@
   },
   {
     "query": "makeup brush set synthetic vegan",
-    "matched_count": 0,
+    "matched_count": 1,
     "expected_product_type": "makeup brush set",
-    "returned_product_types": [],
-    "match_score": 0
+    "returned_product_types": [
+      "makeup brush set"
+    ],
+    "match_score": 1
   }
 ]

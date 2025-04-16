@@ -26,7 +26,7 @@ with open(DATASET_PATH, "r", encoding="utf-8") as f:
 
 print(f"✅ Successfully loaded {len(entries)} valid entries from the evaluation dataset.")
 
-# Load product catalog - Modified to handle JavaScript format
+# Load product catalog - Improved parsing method
 with open(CATALOG_PATH, "r", encoding="utf-8") as f:
     catalog_content = f.read()
     
@@ -34,62 +34,68 @@ with open(CATALOG_PATH, "r", encoding="utf-8") as f:
     catalog_match = re.search(r'const productCatalog = (\[[\s\S]*?\]);', catalog_content)
     
     if catalog_match:
-        # Direct approach: Convert JavaScript object to Python dictionary
-        js_array = catalog_match.group(1)
+        # Parse the catalog using a more flexible approach
+        catalog = []
         
-        # Create a Python version of the catalog by directly parsing the JavaScript
-        import ast
+        # First try to extract products with the standard format
+        product_matches = re.finditer(r'\{\s*id:\s*(\d+),\s*name:\s*"([^"]+)",\s*category:\s*"([^"]+)",\s*subcategory:\s*"([^"]+)",\s*product_type:\s*"([^"]+)",\s*filters:\s*\[(.*?)\]\s*\}', catalog_content)
         
-        # Replace JavaScript object syntax with Python dictionary syntax
-        py_array = js_array.replace('id:', '"id":').replace('name:', '"name":').replace('category:', '"category":')
-        py_array = py_array.replace('subcategory:', '"subcategory":').replace('product_type:', '"product_type":')
-        py_array = py_array.replace('filters:', '"filters":').replace('attributes:', '"attributes":')
+        for match in product_matches:
+            product_id = int(match.group(1))
+            name = match.group(2)
+            category = match.group(3)
+            subcategory = match.group(4)
+            product_type = match.group(5)
+            
+            # Parse filters
+            filters_str = match.group(6)
+            filters = []
+            for filter_match in re.finditer(r'"([^"]+)"', filters_str):
+                filters.append(filter_match.group(1))
+            
+            # Create product dictionary
+            product = {
+                "id": product_id,
+                "name": name,
+                "category": category,
+                "subcategory": subcategory,
+                "product_type": product_type,
+                "filters": filters
+            }
+            
+            catalog.append(product)
         
-        # Replace any remaining unquoted property names (for safety)
-        py_array = re.sub(r'(\s*)(\w+)(\s*):(\s*)', r'\1"\2"\3:\4', py_array)
+        # Now try to extract products with a more flexible pattern for the newly added items
+        additional_matches = re.finditer(r'\{\s*id:\s*(\d+),\s*name:\s*"([^"]+)",\s*product_type:\s*"([^"]+)",\s*category:\s*"([^"]+)",\s*subcategory:\s*"([^"]+)",\s*filters:\s*\[(.*?)\]\s*\}', catalog_content)
         
-        try:
-            # Try to evaluate as Python literal
-            catalog = eval(py_array)
-            print(f"✅ Successfully loaded {len(catalog)} products from the catalog.")
-        except Exception as e:
-            print(f"⚠️ Error parsing product catalog: {e}")
-            print("Using fallback method.")
-            try:
-                # Another approach: manually parse the file
-                catalog = []
-                # Extract each product object
-                product_matches = re.finditer(r'\{\s*id:\s*(\d+),\s*name:\s*"([^"]+)",\s*category:\s*"([^"]+)",\s*subcategory:\s*"([^"]+)",\s*product_type:\s*"([^"]+)",\s*filters:\s*\[(.*?)\]\s*\}', catalog_content)
-                
-                for match in product_matches:
-                    product_id = int(match.group(1))
-                    name = match.group(2)
-                    category = match.group(3)
-                    subcategory = match.group(4)
-                    product_type = match.group(5)
-                    
-                    # Parse filters
-                    filters_str = match.group(6)
-                    filters = []
-                    for filter_match in re.finditer(r'"([^"]+)"', filters_str):
-                        filters.append(filter_match.group(1))
-                    
-                    # Create product dictionary
-                    product = {
-                        "id": product_id,
-                        "name": name,
-                        "category": category,
-                        "subcategory": subcategory,
-                        "product_type": product_type,
-                        "filters": filters
-                    }
-                    
-                    catalog.append(product)
-                
-                print(f"✅ Successfully loaded {len(catalog)} products from the catalog using regex parsing.")
-            except Exception as e:
-                print(f"❌ Failed to parse product catalog: {e}")
-                catalog = []
+        for match in additional_matches:
+            product_id = int(match.group(1))
+            name = match.group(2)
+            product_type = match.group(3)
+            category = match.group(4)
+            subcategory = match.group(5)
+            
+            # Parse filters
+            filters_str = match.group(6)
+            filters = []
+            for filter_match in re.finditer(r'"([^"]+)"', filters_str):
+                filters.append(filter_match.group(1))
+            
+            # Create product dictionary
+            product = {
+                "id": product_id,
+                "name": name,
+                "category": category,
+                "subcategory": subcategory,
+                "product_type": product_type,
+                "filters": filters
+            }
+            
+            # Check if this product ID is already in the catalog (avoid duplicates)
+            if not any(p["id"] == product_id for p in catalog):
+                catalog.append(product)
+        
+        print(f"✅ Successfully loaded {len(catalog)} products from the catalog using improved parsing.")
     else:
         print("❌ Could not extract product catalog from file.")
         catalog = []

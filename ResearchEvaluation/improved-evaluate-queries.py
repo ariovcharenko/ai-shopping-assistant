@@ -26,76 +26,121 @@ with open(DATASET_PATH, "r", encoding="utf-8") as f:
 
 print(f"✅ Successfully loaded {len(entries)} valid entries from the evaluation dataset.")
 
-# Load product catalog - Improved parsing method
+# Load product catalog - Robust parsing method
 with open(CATALOG_PATH, "r", encoding="utf-8") as f:
     catalog_content = f.read()
+    
+    # Count total products in the file
+    total_products = len(re.findall(r'id:\s*\d+', catalog_content))
     
     # Extract the array from the JavaScript file
     catalog_match = re.search(r'const productCatalog = (\[[\s\S]*?\]);', catalog_content)
     
     if catalog_match:
-        # Parse the catalog using a more flexible approach
+        # Parse the catalog using a direct approach
         catalog = []
         
-        # First try to extract products with the standard format
-        product_matches = re.finditer(r'\{\s*id:\s*(\d+),\s*name:\s*"([^"]+)",\s*category:\s*"([^"]+)",\s*subcategory:\s*"([^"]+)",\s*product_type:\s*"([^"]+)",\s*filters:\s*\[(.*?)\]\s*\}', catalog_content)
+        # Extract all product objects
+        product_blocks = re.findall(r'\{\s*id:\s*\d+,[\s\S]*?filters:\s*\[[\s\S]*?\]\s*\}', catalog_content)
         
-        for match in product_matches:
-            product_id = int(match.group(1))
-            name = match.group(2)
-            category = match.group(3)
-            subcategory = match.group(4)
-            product_type = match.group(5)
-            
-            # Parse filters
-            filters_str = match.group(6)
-            filters = []
-            for filter_match in re.finditer(r'"([^"]+)"', filters_str):
-                filters.append(filter_match.group(1))
-            
-            # Create product dictionary
-            product = {
-                "id": product_id,
-                "name": name,
-                "category": category,
-                "subcategory": subcategory,
-                "product_type": product_type,
-                "filters": filters
-            }
-            
-            catalog.append(product)
-        
-        # Now try to extract products with a more flexible pattern for the newly added items
-        additional_matches = re.finditer(r'\{\s*id:\s*(\d+),\s*name:\s*"([^"]+)",\s*product_type:\s*"([^"]+)",\s*category:\s*"([^"]+)",\s*subcategory:\s*"([^"]+)",\s*filters:\s*\[(.*?)\]\s*\}', catalog_content)
-        
-        for match in additional_matches:
-            product_id = int(match.group(1))
-            name = match.group(2)
-            product_type = match.group(3)
-            category = match.group(4)
-            subcategory = match.group(5)
-            
-            # Parse filters
-            filters_str = match.group(6)
-            filters = []
-            for filter_match in re.finditer(r'"([^"]+)"', filters_str):
-                filters.append(filter_match.group(1))
-            
-            # Create product dictionary
-            product = {
-                "id": product_id,
-                "name": name,
-                "category": category,
-                "subcategory": subcategory,
-                "product_type": product_type,
-                "filters": filters
-            }
-            
-            # Check if this product ID is already in the catalog (avoid duplicates)
-            if not any(p["id"] == product_id for p in catalog):
+        for block in product_blocks:
+            # Extract ID
+            id_match = re.search(r'id:\s*(\d+)', block)
+            if id_match:
+                product_id = int(id_match.group(1))
+                
+                # Skip if already in catalog
+                if any(p["id"] == product_id for p in catalog):
+                    continue
+                
+                # Extract name
+                name_match = re.search(r'name:\s*"([^"]+)"', block)
+                name = name_match.group(1) if name_match else ""
+                
+                # Extract product_type
+                product_type_match = re.search(r'product_type:\s*"([^"]+)"', block)
+                product_type = product_type_match.group(1) if product_type_match else ""
+                
+                # Extract category
+                category_match = re.search(r'category:\s*"([^"]+)"', block)
+                category = category_match.group(1) if category_match else ""
+                
+                # Extract subcategory
+                subcategory_match = re.search(r'subcategory:\s*"([^"]+)"', block)
+                subcategory = subcategory_match.group(1) if subcategory_match else ""
+                
+                # Extract filters
+                filters = []
+                filters_match = re.search(r'filters:\s*\[(.*?)\]', block, re.DOTALL)
+                if filters_match:
+                    filters_str = filters_match.group(1)
+                    for filter_match in re.finditer(r'"([^"]+)"', filters_str):
+                        filters.append(filter_match.group(1))
+                
+                # Create product dictionary
+                product = {
+                    "id": product_id,
+                    "name": name,
+                    "category": category,
+                    "subcategory": subcategory,
+                    "product_type": product_type,
+                    "filters": filters
+                }
+                
                 catalog.append(product)
         
-        print(f"✅ Successfully loaded {len(catalog)} products from the catalog using improved parsing.")
+        # If we still don't have all products, try a more aggressive approach
+        if len(catalog) < total_products:
+            # Try a different pattern to extract product blocks
+            product_blocks = re.findall(r'\{\s*id:\s*\d+,[\s\S]*?\},', catalog_content)
+            
+            for block in product_blocks:
+                # Extract ID
+                id_match = re.search(r'id:\s*(\d+)', block)
+                if id_match:
+                    product_id = int(id_match.group(1))
+                    
+                    # Skip if already in catalog
+                    if any(p["id"] == product_id for p in catalog):
+                        continue
+                    
+                    # Extract name
+                    name_match = re.search(r'name:\s*"([^"]+)"', block)
+                    name = name_match.group(1) if name_match else ""
+                    
+                    # Extract product_type
+                    product_type_match = re.search(r'product_type:\s*"([^"]+)"', block)
+                    product_type = product_type_match.group(1) if product_type_match else ""
+                    
+                    # Extract category
+                    category_match = re.search(r'category:\s*"([^"]+)"', block)
+                    category = category_match.group(1) if category_match else ""
+                    
+                    # Extract subcategory
+                    subcategory_match = re.search(r'subcategory:\s*"([^"]+)"', block)
+                    subcategory = subcategory_match.group(1) if subcategory_match else ""
+                    
+                    # Extract filters
+                    filters = []
+                    filters_match = re.search(r'filters:\s*\[(.*?)\]', block, re.DOTALL)
+                    if filters_match:
+                        filters_str = filters_match.group(1)
+                        for filter_match in re.finditer(r'"([^"]+)"', filters_str):
+                            filters.append(filter_match.group(1))
+                    
+                    # Create product dictionary
+                    product = {
+                        "id": product_id,
+                        "name": name,
+                        "category": category,
+                        "subcategory": subcategory,
+                        "product_type": product_type,
+                        "filters": filters
+                    }
+                    
+                    catalog.append(product)
+        
+        print(f"✅ Successfully loaded {len(catalog)} products from the catalog using robust parsing.")
     else:
         print("❌ Could not extract product catalog from file.")
         catalog = []

@@ -31,15 +31,15 @@
                     try {
                         setLoading(true);
                         
-                        // Load match log
-                        const matchLogResponse = await fetch('/server/data/datasets/match-log.json');
+                        // Load match log from the new location
+                        const matchLogResponse = await fetch('/ResearchEvaluation/reports/match-log.json');
                         if (!matchLogResponse.ok) throw new Error('Failed to load match log');
                         const matchLogData = await matchLogResponse.json();
                         setMatchLog(matchLogData);
                         
-                        // Load summary
+                        // Load summary from the new location
                         try {
-                            const summaryResponse = await fetch('/ResearchEvaluation/evaluation-summary.json');
+                            const summaryResponse = await fetch('/ResearchEvaluation/reports/evaluation-summary.json');
                             if (summaryResponse.ok) {
                                 const summaryData = await summaryResponse.json();
                                 setSummary(summaryData);

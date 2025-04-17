@@ -1,84 +1,84 @@
-# Semantic Product Search App
+# Semantic Product Search Evaluation System
 
-A React frontend and Node.js + Express backend application that uses OpenAI's API to parse natural language search queries for products.
+A comprehensive system for evaluating and analyzing the performance of natural language product search queries against a product catalog.
+
+## Project Overview
+
+This project provides tools to evaluate how well a semantic search system interprets natural language queries and matches them to products in a catalog. It includes evaluation scripts, visualization tools, and audit capabilities to identify and fix matching issues.
+
+## How Semantic Evaluation Works
+
+The semantic evaluation system works by:
+
+1. **Query Analysis**: Processing natural language queries to extract product types and filters
+2. **Catalog Matching**: Using case-insensitive and partial matching to find relevant products
+3. **Result Tagging**: Categorizing results with tags to identify match quality and failure reasons
+4. **Performance Metrics**: Calculating match rates, average matches per query, and identifying unmatched product types
+5. **Audit System**: Verifying tag accuracy and identifying false negatives
 
 ## Project Structure
 
 - `client/`: React frontend application
 - `server/`: Node.js + Express backend application
-- `data/`: Directory for storing evaluation data
+- `ResearchEvaluation/`: Evaluation scripts and visualization tools
+  - `improved-evaluate-queries.py`: Main evaluation script with semantic matching
+  - `extract_missing_product_types.py`: Script to identify missing product types
+  - `audit_tag_accuracy.py`: Script to audit tag accuracy and find false negatives
+  - `extract_audit_insights.py`: Script to extract insights from audit reports
+  - `serve_visualization.py`: Web server for the visualization tool
+  - `reports/`: Directory containing evaluation reports and logs
+  - `visualization/`: Web-based visualization interface
 
 ## Prerequisites
 
 - Node.js (v14 or higher)
 - npm (v6 or higher)
+- Python 3.6+
 - OpenAI API key (set in `server/.env`)
 
-## Setup
+## Running the System
 
-1. Clone the repository
-2. Install dependencies for both client and server:
-
-```bash
-# Install server dependencies
-cd server
-npm install
-
-# Install client dependencies
-cd ../client
-npm install
-```
-
-3. Configure the OpenAI API key in `server/.env`:
-
-```
-PORT=5001
-OPENAI_API_KEY=your_openai_api_key_here
-```
-
-## Running the Application
-
-### Option 1: Using the Batch File (Windows)
-
-The easiest way to start both the server and client is to use the provided batch file:
+### Running the Evaluation
 
 ```bash
-# From the project root
-start-app.bat
+# Run the improved evaluation script
+python ResearchEvaluation/improved-evaluate-queries.py
 ```
 
 This will:
-- Check if the data directory and evaluation dataset file exist, creating them if needed
-- Start the backend server on port 5001
-- Start the frontend client on port 3000
+- Load the evaluation dataset and product catalog
+- Perform matching with case-insensitive and partial matching
+- Generate detailed logs with tags for each query
+- Calculate and save summary metrics
+- Identify missing product types
 
-### Option 2: Manual Start
-
-#### Start the Backend Server
-
-```bash
-cd server
-npm run safe-dev  # Checks if port is available before starting
-```
-
-The server will run on http://localhost:5001
-
-#### Start the Frontend Client
+### Viewing Results with the Visualization Tool
 
 ```bash
-cd client
-npm start
+# Start the visualization server
+python ResearchEvaluation/serve_visualization.py
 ```
 
-The client will run on http://localhost:3000
+This will:
+- Start a local HTTP server on port 8000
+- Automatically open your browser to the visualization page
+- Display summary metrics, query results, and filter statistics
 
-## Features
+## Current Statistics
 
-- Natural language product search using OpenAI's API
-- Product filtering based on AI-interpreted search parameters
-- User feedback collection for search results
-- Evaluation metrics for search performance
-- Logging of search interactions for future analysis
+- **Match Rate**: 99% of queries successfully match products in the catalog
+- **Average Matches**: 5.42 products matched per query
+- **Unmatched Types**: Only "aa batteries" remains unmatched in the catalog
+- **False Negatives**: 0 false negatives found in the latest audit
+
+## Audit Reports
+
+The tag audit system verifies the accuracy of product type and filter matching. The latest audit report can be found in `ResearchEvaluation/reports/tag-audit-report.json`.
+
+Key findings:
+- No false negatives detected in the current system
+- All product types that exist in the catalog are being properly matched
+- The improved matching algorithm successfully handles partial matches and filter variations
 
 ## Troubleshooting
 
@@ -90,33 +90,6 @@ This error can occur for several reasons:
 2. **OpenAI API key issues**: Check if your API key is valid and has sufficient quota
 3. **Network issues**: Ensure you have a stable internet connection
 4. **Port conflicts**: If port 5001 is already in use, change it in `server/.env` and update the proxy in `client/package.json`
-
-### Server Won't Start
-
-If the server won't start, check:
-
-1. **Port availability**: Run `npm run check-port` in the server directory to see if port 5001 is available
-2. **Missing dependencies**: Run `npm install` in the server directory
-3. **Environment variables**: Ensure `.env` file exists with proper configuration
-
-### Client Won't Connect to Server
-
-If the client can't connect to the server:
-
-1. **Proxy configuration**: Ensure the proxy in `client/package.json` matches the server port
-2. **CORS issues**: Check if CORS is properly configured in the server
-3. **Server running**: Verify the server is running and accessible
-
-## Data Storage
-
-The application stores evaluation data in `server/data/prompt_history.jsonl`. This file is created automatically if it doesn't exist.
-
-## API Endpoints
-
-- `POST /api/search`: Search for products using natural language
-- `POST /api/feedback`: Provide feedback on search results
-- `GET /api/metrics`: Get evaluation metrics
-- `GET /api/eval-dataset`: Export evaluation dataset
 
 ## License
 

@@ -16,6 +16,7 @@ Your response should include the following fields:
 }
 
 🛑 CRITICAL GUIDELINES (No Exceptions):
+- Only include filters explicitly mentioned or strongly implied by the user. Do not make subjective assumptions such as 'comfy', 'modern', or 'trendy' unless those exact words are used.
 - DO NOT infer preferences like "modern", "stylish", "durable", "premium", or "elegant" unless the query uses those exact terms.
 - DO NOT convert metaphorical or subjective expressions into filters. If someone says "comfy pants," only include the "comfy" filter if it's a searchable feature in the product catalog. Otherwise, skip it.
 - DO NOT fabricate use-cases like "Zoom meetings" or "travel" unless they are explicitly mentioned.

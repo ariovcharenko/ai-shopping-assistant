@@ -7337,11 +7337,11 @@ const productCatalog = [
   },
   {
     id: 988,
-    name: "Toddler Training Pants Cotton Reusable 5 Pack",
-    category: "baby",
-    subcategory: "clothing",
-    product_type: "training pants",
-    filters: ["cotton", "reusable", "5 pack"]
+    name: "Toddler Dinosaur Pajamas (3T) – Organic Cotton",
+    product_type: "pajamas",
+    category: "clothing",
+    subcategory: "sleepwear",
+    filters: ["toddler", "dinosaur", "3t", "organic cotton"]
   },
   {
     id: 989,
@@ -7650,7 +7650,7 @@ const productCatalog = [
     product_type: "sweatpants",
     category: "clothing",
     subcategory: "activewear",
-    filters: ["sweat-wicking", "high-rise", "drawstring", "athletic"]
+    filters: ["sweat-wicking", "high-rise", "loose"]
   },
   {
     id: 1027,

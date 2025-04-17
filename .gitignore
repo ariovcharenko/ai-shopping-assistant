@@ -19,6 +19,16 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# Python specific
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+ENV/
+
 # OS specific files
 .DS_Store
 Thumbs.db

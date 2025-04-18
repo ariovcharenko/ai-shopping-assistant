@@ -3,6 +3,22 @@
 echo "Starting Semantic Product Search App..."
 echo
 
+# Check if Node.js is installed
+if ! command -v node &> /dev/null; then
+  echo "Error: Node.js is not installed or not in your PATH."
+  echo "Please install Node.js using one of the following methods:"
+  echo
+  echo "Method 1: Install via Homebrew (recommended)"
+  echo "  1. Install Homebrew: /bin/bash -c \"\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\""
+  echo "  2. Install Node.js: brew install node"
+  echo
+  echo "Method 2: Download from Node.js website"
+  echo "  Visit https://nodejs.org/en/download/ and download the macOS installer"
+  echo
+  echo "After installing Node.js, run this script again."
+  exit 1
+fi
+
 # Check if the data directory exists, create it if not
 if [ ! -d "server/data" ]; then
   echo "Creating data directory..."
@@ -17,7 +33,7 @@ fi
 
 echo
 echo "Starting backend server..."
-cd server && npm run safe-dev &
+(cd server && npm run safe-dev) &
 SERVER_PID=$!
 
 # Wait for the server to start
@@ -26,7 +42,7 @@ sleep 5
 
 echo
 echo "Starting frontend client..."
-cd ../client && npm start &
+(cd client && npm start) &
 CLIENT_PID=$!
 
 # Wait for the frontend to start
@@ -48,3 +64,6 @@ echo "To stop the application, press Ctrl+C"
 # Keep the script running until Ctrl+C
 trap "kill $SERVER_PID $CLIENT_PID; exit" INT
 wait
+
+# If the script exits without Ctrl+C, make sure to kill the processes
+kill $SERVER_PID $CLIENT_PID 2>/dev/null

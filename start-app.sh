@@ -42,8 +42,8 @@ sleep 5
 
 echo
 echo "Starting frontend client..."
-(cd client && npm start) &
-CLIENT_PID=$!
+(cd frontend && npm run dev) &
+FRONTEND_PID=$!
 
 # Wait for the frontend to start
 echo "Waiting for frontend to start..."
@@ -51,19 +51,19 @@ sleep 10
 
 echo
 echo "Opening application in Safari..."
-open -a Safari http://localhost:3000
+open -a Safari http://localhost:5173
 
 echo
 echo "App started successfully!"
 echo
 echo "Backend: http://localhost:5001"
-echo "Frontend: http://localhost:3000"
+echo "Frontend: http://localhost:5173"
 echo
 echo "To stop the application, press Ctrl+C"
 
 # Keep the script running until Ctrl+C
-trap "kill $SERVER_PID $CLIENT_PID; exit" INT
+trap "kill $SERVER_PID $FRONTEND_PID; exit" INT
 wait
 
 # If the script exits without Ctrl+C, make sure to kill the processes
-kill $SERVER_PID $CLIENT_PID 2>/dev/null
+kill $SERVER_PID $FRONTEND_PID 2>/dev/null

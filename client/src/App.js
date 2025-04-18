@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import SearchForm from './components/SearchForm';
 import SearchResults from './components/SearchResults';
 import MetricsDisplay from './components/MetricsDisplay';
+import InstallationInstructions from './components/InstallationInstructions';
 
 function App() {
   const [searchParams, setSearchParams] = useState(null);
@@ -12,6 +13,27 @@ function App() {
   const [interactionId, setInteractionId] = useState(null);
   const [showMetrics, setShowMetrics] = useState(false);
   const [feedbackStatus, setFeedbackStatus] = useState(null);
+  const [nodeInstalled, setNodeInstalled] = useState(true); // Default to true for initial rendering
+  const [checkingEnvironment, setCheckingEnvironment] = useState(true);
+  
+  useEffect(() => {
+    // Check if we're running in development mode with a server
+    // or if we're running the built version directly
+    const checkEnvironment = async () => {
+      try {
+        // Try to connect to the backend server
+        await axios.get('/api/health');
+        setNodeInstalled(true);
+      } catch (err) {
+        console.error('Backend server not available:', err);
+        setNodeInstalled(false);
+      } finally {
+        setCheckingEnvironment(false);
+      }
+    };
+    
+    checkEnvironment();
+  }, []);
 
   const handleSearch = async (query) => {
     setLoading(true);
@@ -109,6 +131,24 @@ function App() {
     setShowMetrics(!showMetrics);
   };
 
+  // If we're still checking the environment, show a loading state
+  if (checkingEnvironment) {
+    return (
+      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-xl font-semibold text-gray-700">Loading application...</h2>
+          <p className="mt-2 text-gray-500">Please wait while we check your environment.</p>
+        </div>
+      </div>
+    );
+  }
+  
+  // If Node.js is not installed, show installation instructions
+  if (!nodeInstalled) {
+    return <InstallationInstructions />;
+  }
+  
+  // Otherwise, show the main application
   return (
     <div className="min-h-screen bg-gray-100">
       <header className="bg-white shadow">

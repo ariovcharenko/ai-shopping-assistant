@@ -207,6 +207,11 @@ function normalizeProductOutput(output) {
   return normalized;
 }
 
+// Health check endpoint
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok', message: 'Server is running' });
+});
+
 // API endpoint for search
 app.post('/api/search', async (req, res) => {
   try {

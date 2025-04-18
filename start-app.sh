@@ -31,27 +31,34 @@ if [ ! -f "server/data/prompt_history.jsonl" ]; then
   touch "server/data/prompt_history.jsonl"
 fi
 
+# Start the backend server
 echo
 echo "Starting backend server..."
-(cd server && npm run safe-dev) &
+cd server
+npm run safe-dev &
 SERVER_PID=$!
+cd ..
 
 # Wait for the server to start
 echo "Waiting for server to start..."
 sleep 5
 
+# Start the frontend client
 echo
 echo "Starting frontend client..."
-(cd frontend && npm run dev) &
+cd frontend
+npm run dev &
 FRONTEND_PID=$!
+cd ..
 
 # Wait for the frontend to start
 echo "Waiting for frontend to start..."
 sleep 10
 
+# Open the application in Safari
 echo
 echo "Opening application in Safari..."
-open -a Safari http://localhost:5173
+open -a Safari "http://localhost:5173"
 
 echo
 echo "App started successfully!"

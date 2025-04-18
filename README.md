@@ -36,9 +36,55 @@ The semantic evaluation system works by:
 - Python 3.6+
 - OpenAI API key (set in `server/.env`)
 
-## Running the System
+## Running the Application
 
-### Running the Evaluation
+### Windows Setup
+
+1. Make sure you have Node.js and npm installed
+2. Clone this repository
+3. Run the application using the provided batch file:
+   ```
+   start-app.bat
+   ```
+   This will:
+   - Start the backend server on port 5001
+   - Start the frontend client on port 5173 (or 3000 for the older client)
+   - Open the application in your default browser
+
+### macOS Setup
+
+1. Install Node.js using one of these methods:
+   - Via Homebrew (recommended):
+     ```
+     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+     brew install node
+     ```
+   - Or download from the [Node.js website](https://nodejs.org/en/download/)
+
+2. Clone this repository
+
+3. Make the startup script executable:
+   ```
+   chmod +x start-app.sh
+   ```
+
+4. Run the application:
+   ```
+   ./start-app.sh
+   ```
+   This will:
+   - Start the backend server on port 5001
+   - Start the frontend client on port 5173
+   - Open the application in Safari
+
+### Troubleshooting macOS Setup
+
+If you encounter permission issues with the node_modules executables, run:
+```
+chmod -R +x server/node_modules/.bin/* frontend/node_modules/.bin/*
+```
+
+## Running the Evaluation
 
 ```bash
 # Run the improved evaluation script

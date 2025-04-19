@@ -52,7 +52,8 @@ function App() {
       const response = await axios.post('http://localhost:5001/api/search', { query });
       setResults({
         ...response.data.searchParams,
-        hasGenericValues: response.data.hasGenericValues
+        hasGenericValues: response.data.hasGenericValues,
+        products: response.data.products // Include the matched products
       });
     } catch (err) {
       console.error('Error analyzing search query:', err);

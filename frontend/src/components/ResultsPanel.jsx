@@ -1,7 +1,7 @@
 const ResultsPanel = ({ results }) => {
   if (!results) return null;
 
-  const { category, subcategory, product_type, filters, hasGenericValues } = results;
+  const { category, subcategory, product_type, filters, hasGenericValues, products } = results;
 
   // Check for API key missing error
   if (category === "api_key_missing") {
@@ -110,6 +110,47 @@ const ResultsPanel = ({ results }) => {
           </div>
         </div>
       </div>
+      
+      {/* Display matched products */}
+      {products && products.length > 0 && (
+        <div className="mt-6">
+          <h3 className="text-lg font-semibold text-gray-800 mb-3">Matched Products ({products.length})</h3>
+          <div className="space-y-3">
+            {products.map((product, index) => (
+              <div key={index} className="p-3 bg-gray-50 rounded-md border border-gray-200">
+                <div className="flex justify-between">
+                  <span className="font-medium text-gray-800">{product.name}</span>
+                  <span className="text-sm text-gray-500">${product.price.toFixed(2)}</span>
+                </div>
+                <div className="mt-1 text-sm text-gray-600">
+                  <span className="mr-2">{product.category}</span>
+                  <span className="mr-2">•</span>
+                  <span className="mr-2">{product.subcategory}</span>
+                  <span className="mr-2">•</span>
+                  <span>{product.product_type}</span>
+                </div>
+                <div className="mt-2 flex flex-wrap gap-1">
+                  {product.attributes.map((attr, attrIndex) => (
+                    <span 
+                      key={attrIndex} 
+                      className="inline-block bg-blue-100 text-xs rounded-full px-2 py-0.5 text-blue-700"
+                    >
+                      {attr}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+      
+      {products && products.length === 0 && (
+        <div className="mt-6 p-4 bg-amber-50 text-amber-700 rounded-md border border-amber-200">
+          <p className="font-medium">No matching products found</p>
+          <p className="mt-1 text-sm">Try adjusting your search query to be more general or check for typos.</p>
+        </div>
+      )}
     </div>
   );
 };

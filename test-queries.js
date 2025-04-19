@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const API_URL = 'http://localhost:5002/api/search';
+const API_URL = 'http://localhost:5003/api/search';
 
 const testQueries = [
   {

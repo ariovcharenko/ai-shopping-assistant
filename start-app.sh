@@ -58,13 +58,13 @@ sleep 10
 # Open the application in Safari
 echo
 echo "Opening application in Safari..."
-open -a Safari "http://localhost:5173"
+open -a Safari "http://localhost:5179"
 
 echo
 echo "App started successfully!"
 echo
-echo "Backend: http://localhost:5001"
-echo "Frontend: http://localhost:5173"
+echo "Backend: http://localhost:5002"
+echo "Frontend: http://localhost:5179"
 echo
 echo "To stop the application, press Ctrl+C"
 

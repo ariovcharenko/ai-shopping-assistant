@@ -4,7 +4,10 @@ const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
 const net = require('net');
-const productCatalog = require('./data/productCatalog');
+const productCatalog = require('./data/product-catalog.json');
+// Import OpenAIService
+const OpenAIService = require('./OpenAIService');
+
 
 // Ensure data directory exists
 const dataDir = path.join(__dirname, 'data');
@@ -19,26 +22,9 @@ if (!fs.existsSync(evalDatasetPath)) {
   console.log('Creating empty prompt_history.jsonl file');
   fs.writeFileSync(evalDatasetPath, '', 'utf8');
 }
-
-// Import OpenAIService
-let analyzeSearchQuery, logUserInteraction;
-try {
-  const OpenAIService = require('./openaiService');
-  analyzeSearchQuery = OpenAIService.analyzeSearchQuery;
-  logUserInteraction = OpenAIService.logUserInteraction;
-  console.log('Successfully imported OpenAIService');
-} catch (error) {
-  console.error('Error importing OpenAIService:', error.message);
-  try {
-    const mockService = require('./mockaiService.js');
-    analyzeSearchQuery = mockService.analyzeSearchQuery;
-    logUserInteraction = mockService.logUserInteraction;
-    console.log('Using mockaiService as fallback');
-  } catch (finalError) {
-    console.error('Failed to import any AI service:', finalError.message);
-    throw new Error('No AI service available. Cannot start server.');
-  }
-}
+const analyzeSearchQuery = OpenAIService.analyzeSearchQuery;
+const logUserInteraction = OpenAIService.logUserInteraction;
+console.log('Successfully imported OpenAIService');
 
 // Initialize Express app
 const app = express();
@@ -78,7 +64,7 @@ app.use(express.static(path.join(__dirname, '../client/build')));
 // Simple in-memory storage for user interactions (in a real app, this would be a database)
 const userInteractions = [];
 
-// Helper function to filter products based on search parameters
+  // Helper function to filter products based on search parameters
 function filterProducts(searchParams) {
   // For demonstration purposes, we'll map the new domain-based categories to the existing product catalog
   // In a real application, the product catalog would be updated to match the new category structure
@@ -93,10 +79,30 @@ function filterProducts(searchParams) {
     'general': ['unisex']
   };
   
+  // Product type relationship mapping for improved matching
+  const productTypeRelationships = {
+    'pants': ['sweatpants', 'jeans', 'trousers', 'leggings', 'shorts', 'joggers'],
+    'shirt': ['t-shirt', 'button-down', 'polo', 'blouse', 'tank top', 'sweater'],
+    'shoes': ['sneakers', 'boots', 'sandals', 'slippers', 'heels', 'loafers'],
+    'jacket': ['coat', 'blazer', 'windbreaker', 'puffer', 'raincoat'],
+    'headphones': ['earbuds', 'earphones', 'headset'],
+    'laptop': ['notebook', 'chromebook', 'ultrabook'],
+    'phone': ['smartphone', 'mobile phone', 'cell phone']
+  };
+  
+  // Create a reverse mapping for easier lookup
+  const reverseProductTypeMap = {};
+  Object.entries(productTypeRelationships).forEach(([key, values]) => {
+    values.forEach(value => {
+      reverseProductTypeMap[value] = key;
+    });
+  });
+  
   return productCatalog.filter(product => {
     // Match category using the mapping
     if (searchParams.category && 
-        !categoryMapping[searchParams.category]?.includes(product.category)) {
+        !categoryMapping[searchParams.category]?.includes(product.category) && 
+        product.category !== searchParams.category) {
       return false;
     }
     
@@ -108,11 +114,27 @@ function filterProducts(searchParams) {
       return false;
     }
     
-    // Match product type with flexible matching
-    if (searchParams.product_type && 
-        !product.product_type.includes(searchParams.product_type) && 
-        !searchParams.product_type.includes(product.product_type)) {
-      return false;
+    // Enhanced product type matching with relationships
+    if (searchParams.product_type) {
+      // Direct match or substring match
+      const directMatch = product.product_type.includes(searchParams.product_type) || 
+                          searchParams.product_type.includes(product.product_type);
+      
+      // Check for related product types
+      const searchType = searchParams.product_type.toLowerCase();
+      const productType = product.product_type.toLowerCase();
+      
+      // Check if search type is a parent category and product type is a child
+      const isRelatedAsChild = productTypeRelationships[searchType]?.includes(productType);
+      
+      // Check if product type is a parent category and search type is a child
+      const isRelatedAsParent = reverseProductTypeMap[searchType] === productType || 
+                               productTypeRelationships[productType]?.includes(searchType);
+      
+      // If none of the matching conditions are met, exclude this product
+      if (!directMatch && !isRelatedAsChild && !isRelatedAsParent) {
+        return false;
+      }
     }
     
     // Match filters/attributes (at least one filter should match)
@@ -123,9 +145,13 @@ function filterProducts(searchParams) {
       }
       
       const hasMatchingAttribute = searchParams.filters.some(filter => 
-        product.attributes.some(attr => 
-          attr.includes(filter) || filter.includes(attr)
-        )
+        product.filters.some(attr => {
+          // Normalize both strings for comparison: lowercase and replace hyphens with spaces
+          const normalizedFilter = filter.toLowerCase().replace(/-/g, ' ');
+          const normalizedAttr = attr.toLowerCase().replace(/-/g, ' ');
+          
+          return normalizedAttr.includes(normalizedFilter) || normalizedFilter.includes(normalizedAttr);
+        })
       );
       
       if (!hasMatchingAttribute) {
@@ -216,67 +242,71 @@ app.get('/api/health', (req, res) => {
 app.post('/api/search', async (req, res) => {
   try {
     const { query } = req.body;
-    
-    if (!query) {
-      return res.status(400).json({ error: 'Search query is required' });
-    }
-    
     console.log('Processing search query:', query);
-    
-    // Analyze the search query using OpenAI
-    const searchParams = await analyzeSearchQuery(query);
-    const normalizedSearchParams = normalizeProductOutput(searchParams);
 
-    console.log('Search parameters:', searchParams);
+    if (!query || typeof query !== 'string') {
+      return res.status(400).json({ error: 'Invalid query' });
+    }
     
-    // Check for generic values in the AI output
-    const genericCheck = checkForGenericValues(searchParams);
-    
-    // Filter products based on the search parameters
-    const matchingProducts = filterProducts(searchParams);
-    console.log(`Found ${matchingProducts.length} matching products`);
-    
-    // Log the interaction (without success flag for now)
-    const interaction = {
-      timestamp: new Date().toISOString(),
-      query,
-      aiOutput: searchParams,
-      results: matchingProducts.length,
-      hasGenericValues: genericCheck.hasGenericValues,
-      genericValueDetails: genericCheck.details,
-      success: null // Will be updated when user provides feedback
-    };
-    
-    // Store the interaction
-    userInteractions.push(interaction);
-
     try {
-      // Log interaction to file for evaluation dataset
-      fs.appendFileSync(
-        evalDatasetPath,
-        JSON.stringify(interaction) + '\n',
-        'utf8'
-      );
-      console.log('Interaction logged to evaluation dataset');
-    } catch (fileError) {
-      console.error('Error writing to evaluation dataset file:', fileError);
-    }
-    
-    // Log warning if generic values were detected
-    if (genericCheck.hasGenericValues) {
-      console.warn(`Warning: Generic values detected in AI output for query "${query}":`, genericCheck.details);
+      // Analyze the search query using OpenAI
+      const searchParams = await analyzeSearchQuery(query);
+      console.log('OpenAI search parameters:', searchParams);
       
-      // Log unrecognized query for prompt improvement
-      logUnrecognizedQuery(query, searchParams);
+      // Check for generic values in the AI output
+      const genericCheck = checkForGenericValues(searchParams);
+      
+      // Filter products based on the search parameters
+      const matchingProducts = filterProducts(searchParams);
+      console.log(`Found ${matchingProducts.length} matching products`);
+      
+      // Log the interaction (without success flag for now)
+      const interaction = {
+        timestamp: new Date().toISOString(),
+        query,
+        aiOutput: searchParams,
+        results: matchingProducts.length,
+        hasGenericValues: genericCheck.hasGenericValues,
+        genericValueDetails: genericCheck.details,
+        success: null // Will be updated when user provides feedback
+      };
+      
+      // Store the interaction
+      userInteractions.push(interaction);
+
+      try {
+        // Log interaction to file for evaluation dataset
+        fs.appendFileSync(
+          evalDatasetPath,
+          JSON.stringify(interaction) + '\n',
+          'utf8'
+        );
+        console.log('Interaction logged to evaluation dataset');
+      } catch (fileError) {
+        console.error('Error writing to evaluation dataset file:', fileError);
+      }
+      
+      // Log warning if generic values were detected
+      if (genericCheck.hasGenericValues) {
+        console.warn(`Warning: Generic values detected in AI output for query "${query}":`, genericCheck.details);
+        
+        // Log unrecognized query for prompt improvement
+        logUnrecognizedQuery(query, searchParams);
+      }
+      
+      // Return the search results
+      res.json({
+        searchParams,
+        products: matchingProducts,
+        interactionId: userInteractions.length - 1, // Reference for feedback
+        hasGenericValues: genericCheck.hasGenericValues
+      });
+    } catch (openaiError) {
+      console.error('OpenAI API error:', openaiError.message);
+      console.error('Stack trace:', openaiError.stack);
+      console.error('Response data:', openaiError.response?.data);
+      res.status(500).json({ error: `OpenAI API error: ${openaiError.message}` });
     }
-    
-    // Return the search results
-    res.json({
-      searchParams,
-      products: matchingProducts,
-      interactionId: userInteractions.length - 1, // Reference for feedback
-      hasGenericValues: genericCheck.hasGenericValues
-    });
   } catch (error) {
     console.error('Search error:', error);
     

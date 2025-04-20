@@ -4,7 +4,7 @@ function InstallationInstructions() {
   return (
     <div className="min-h-screen bg-gray-50 py-12">
       <div className="max-w-3xl mx-auto bg-white rounded-lg shadow-md p-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-6">Cline Application - Setup Instructions</h1>
+        <h1 className="text-3xl font-bold text-gray-900 mb-6">Search Analysis App - Setup Instructions</h1>
         
         <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6">
           <p className="text-blue-700">

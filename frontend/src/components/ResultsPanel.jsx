@@ -120,7 +120,6 @@ const ResultsPanel = ({ results }) => {
               <div key={index} className="p-3 bg-gray-50 rounded-md border border-gray-200">
                 <div className="flex justify-between">
                   <span className="font-medium text-gray-800">{product.name}</span>
-                  <span className="text-sm text-gray-500">${product.price.toFixed(2)}</span>
                 </div>
                 <div className="mt-1 text-sm text-gray-600">
                   <span className="mr-2">{product.category}</span>
@@ -130,7 +129,7 @@ const ResultsPanel = ({ results }) => {
                   <span>{product.product_type}</span>
                 </div>
                 <div className="mt-2 flex flex-wrap gap-1">
-                  {product.attributes.map((attr, attrIndex) => (
+                  {product.filters && product.filters.map((attr, attrIndex) => (
                     <span 
                       key={attrIndex} 
                       className="inline-block bg-blue-100 text-xs rounded-full px-2 py-0.5 text-blue-700"

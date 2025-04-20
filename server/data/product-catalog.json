@@ -10974,14 +10974,15 @@
   },
   {
     "id": 988,
-    "name": "Toddler Training Pants Cotton Reusable 5 Pack",
-    "category": "baby",
-    "subcategory": "clothing",
-    "product_type": "training pants",
+    "name": "Toddler Dinosaur Pajamas (3T) – Organic Cotton",
+    "category": "clothing",
+    "subcategory": "sleepwear",
+    "product_type": "pajamas",
     "filters": [
-      "cotton",
-      "reusable",
-      "5 pack"
+      "toddler",
+      "dinosaur",
+      "3t",
+      "organic cotton"
     ]
   },
   {
@@ -11130,29 +11131,871 @@
   },
   {
     "id": 1001,
-    "name": "Men's Fleece Sweatpants Comfortable Loungewear",
-    "category": "clothing",
-    "subcategory": "bottoms",
-    "product_type": "sweatpants",
+    "name": "Compact Digital Air Fryer 4.5Qt",
+    "category": "kitchen",
+    "subcategory": "appliances",
+    "product_type": "air fryer",
     "filters": [
-      "men's",
-      "fleece",
-      "comfortable",
-      "loungewear"
+      "digital controls",
+      "nonstick basket",
+      "4.5 quart",
+      "compact"
     ]
   },
   {
     "id": 1002,
-    "name": "Women's Cotton Blend Sweatpants with Pockets",
+    "name": "Stainless Steel Air Fryer XL 6.8Qt",
+    "category": "kitchen",
+    "subcategory": "appliances",
+    "product_type": "air fryer",
+    "filters": [
+      "stainless steel",
+      "6.8 quart",
+      "extra large",
+      "easy to clean"
+    ]
+  },
+  {
+    "id": 1003,
+    "name": "Dual Basket Smart Air Fryer 7Qt",
+    "category": "kitchen",
+    "subcategory": "appliances",
+    "product_type": "air fryer",
+    "filters": [
+      "dual basket",
+      "touchscreen",
+      "7 quart",
+      "preset modes"
+    ]
+  },
+  {
+    "id": 1004,
+    "name": "Oil-Less Compact Air Fryer 2Qt",
+    "category": "kitchen",
+    "subcategory": "appliances",
+    "product_type": "air fryer",
+    "filters": [
+      "2 quart",
+      "oil-less",
+      "compact",
+      "dial timer"
+    ]
+  },
+  {
+    "id": 1005,
+    "name": "Family Size Air Fryer Oven Combo",
+    "category": "kitchen",
+    "subcategory": "appliances",
+    "product_type": "air fryer",
+    "filters": [
+      "oven combo",
+      "family size",
+      "multi-function",
+      "large capacity"
+    ]
+  },
+  {
+    "id": 1006,
+    "name": "LEGO Classic Bricks and Animals 500pcs",
+    "category": "toys",
+    "subcategory": "building sets",
+    "product_type": "lego set",
+    "filters": [
+      "500 pieces",
+      "classic",
+      "ages 5+",
+      "animal theme"
+    ]
+  },
+  {
+    "id": 1007,
+    "name": "LEGO City Fire Station Playset",
+    "category": "toys",
+    "subcategory": "building sets",
+    "product_type": "lego set",
+    "filters": [
+      "fire station",
+      "vehicle",
+      "ages 6+",
+      "interactive"
+    ]
+  },
+  {
+    "id": 1008,
+    "name": "LEGO Friends Treehouse Set 600pcs",
+    "category": "toys",
+    "subcategory": "building sets",
+    "product_type": "lego set",
+    "filters": [
+      "600 pieces",
+      "treehouse",
+      "creative play",
+      "ages 7+"
+    ]
+  },
+  {
+    "id": 1009,
+    "name": "LEGO Technic Monster Truck 2-in-1",
+    "category": "toys",
+    "subcategory": "building sets",
+    "product_type": "lego set",
+    "filters": [
+      "technic",
+      "monster truck",
+      "2-in-1",
+      "engineering build"
+    ]
+  },
+  {
+    "id": 1010,
+    "name": "LEGO Star Wars TIE Fighter 432pcs",
+    "category": "toys",
+    "subcategory": "building sets",
+    "product_type": "lego set",
+    "filters": [
+      "star wars",
+      "TIE fighter",
+      "collectible",
+      "ages 8+"
+    ]
+  },
+  {
+    "id": 1011,
+    "name": "Squeaky Plush Duck Dog Toy",
+    "category": "pet supplies",
+    "subcategory": "dog toys",
+    "product_type": "dog toy",
+    "filters": [
+      "plush",
+      "squeaky",
+      "medium dogs",
+      "chew-friendly"
+    ]
+  },
+  {
+    "id": 1012,
+    "name": "Durable Rope Tug Dog Toy",
+    "category": "pet supplies",
+    "subcategory": "dog toys",
+    "product_type": "dog toy",
+    "filters": [
+      "rope",
+      "tug of war",
+      "chew-resistant",
+      "large dogs"
+    ]
+  },
+  {
+    "id": 1013,
+    "name": "Interactive Treat Puzzle Dog Toy",
+    "category": "pet supplies",
+    "subcategory": "dog toys",
+    "product_type": "dog toy",
+    "filters": [
+      "interactive",
+      "treat dispensing",
+      "brain stimulation",
+      "non-slip base"
+    ]
+  },
+  {
+    "id": 1014,
+    "name": "Tennis Ball Multipack for Dogs",
+    "category": "pet supplies",
+    "subcategory": "dog toys",
+    "product_type": "dog toy",
+    "filters": [
+      "tennis ball",
+      "pack of 6",
+      "non-toxic",
+      "fetch"
+    ]
+  },
+  {
+    "id": 1015,
+    "name": "Rubber Chew Bone with Nubs",
+    "category": "pet supplies",
+    "subcategory": "dog toys",
+    "product_type": "dog toy",
+    "filters": [
+      "rubber",
+      "chew-safe",
+      "nubs",
+      "teeth cleaning"
+    ]
+  },
+  {
+    "id": 1016,
+    "name": "Wide Brim Straw Sun Hat with Chin Strap",
+    "category": "accessories",
+    "subcategory": "hats",
+    "product_type": "sun hat",
+    "filters": [
+      "wide brim",
+      "straw",
+      "chin strap",
+      "UV protection"
+    ]
+  },
+  {
+    "id": 1017,
+    "name": "Packable Floppy Sun Hat for Travel",
+    "category": "accessories",
+    "subcategory": "hats",
+    "product_type": "sun hat",
+    "filters": [
+      "packable",
+      "lightweight",
+      "beach",
+      "travel"
+    ]
+  },
+  {
+    "id": 1018,
+    "name": "UPF 50+ Sun Hat with Neck Flap",
+    "category": "accessories",
+    "subcategory": "hats",
+    "product_type": "sun hat",
+    "filters": [
+      "UPF 50+",
+      "neck flap",
+      "adjustable",
+      "for hiking"
+    ]
+  },
+  {
+    "id": 1019,
+    "name": "Foldable Canvas Sun Hat with Bow",
+    "category": "accessories",
+    "subcategory": "hats",
+    "product_type": "sun hat",
+    "filters": [
+      "foldable",
+      "canvas",
+      "decorative bow",
+      "casual"
+    ]
+  },
+  {
+    "id": 1020,
+    "name": "Boho Crochet Sun Hat for Women",
+    "category": "accessories",
+    "subcategory": "hats",
+    "product_type": "sun hat",
+    "filters": [
+      "crochet",
+      "boho style",
+      "breathable",
+      "adjustable"
+    ]
+  },
+  {
+    "id": 1021,
+    "name": "Soft Makeup Brush Set 10-Piece",
+    "category": "beauty",
+    "subcategory": "tools",
+    "product_type": "makeup brush set",
+    "filters": [
+      "10-piece",
+      "synthetic bristles",
+      "for foundation",
+      "soft touch"
+    ]
+  },
+  {
+    "id": 1022,
+    "name": "Professional Makeup Brushes with Case",
+    "category": "beauty",
+    "subcategory": "tools",
+    "product_type": "makeup brush set",
+    "filters": [
+      "professional",
+      "travel case",
+      "multi-use",
+      "for contour"
+    ]
+  },
+  {
+    "id": 1023,
+    "name": "Eco-Friendly Bamboo Makeup Brush Kit",
+    "category": "beauty",
+    "subcategory": "tools",
+    "product_type": "makeup brush set",
+    "filters": [
+      "bamboo",
+      "eco-friendly",
+      "5-piece",
+      "compact"
+    ]
+  },
+  {
+    "id": 1024,
+    "name": "Rose Gold Makeup Brush Set 12-Pack",
+    "category": "beauty",
+    "subcategory": "tools",
+    "product_type": "makeup brush set",
+    "filters": [
+      "12-pack",
+      "rose gold",
+      "for eyeshadow",
+      "luxury"
+    ]
+  },
+  {
+    "id": 1025,
+    "name": "Makeup Brushes with Silicone Blender",
+    "category": "beauty",
+    "subcategory": "tools",
+    "product_type": "makeup brush set",
+    "filters": [
+      "brush & blender",
+      "blending sponge",
+      "foundation",
+      "compact"
+    ]
+  },
+  {
+    "id": 1026,
+    "name": "Sweat-Wicking High-Rise Sweatpants",
     "category": "clothing",
-    "subcategory": "bottoms",
+    "subcategory": "activewear",
     "product_type": "sweatpants",
     "filters": [
-      "women's",
-      "cotton blend",
-      "pockets",
-      "loungewear",
-      "comfortable"
+      "sweat-wicking",
+      "high-rise",
+      "loose"
+    ]
+  },
+  {
+    "id": 1027,
+    "name": "Fleece-Lined Jogger Sweatpants",
+    "category": "clothing",
+    "subcategory": "loungewear",
+    "product_type": "sweatpants",
+    "filters": [
+      "fleece-lined",
+      "elastic cuffs",
+      "winter",
+      "soft"
+    ]
+  },
+  {
+    "id": 1028,
+    "name": "Cotton Relaxed Fit Sweatpants",
+    "category": "clothing",
+    "subcategory": "basics",
+    "product_type": "sweatpants",
+    "filters": [
+      "cotton",
+      "relaxed fit",
+      "side pockets",
+      "adjustable waist"
+    ]
+  },
+  {
+    "id": 1029,
+    "name": "Cuffed Sweatpants with Zip Pockets",
+    "category": "clothing",
+    "subcategory": "streetwear",
+    "product_type": "sweatpants",
+    "filters": [
+      "cuffed",
+      "zip pockets",
+      "slim fit",
+      "modern style"
+    ]
+  },
+  {
+    "id": 1030,
+    "name": "French Terry Lounge Sweatpants",
+    "category": "clothing",
+    "subcategory": "loungewear",
+    "product_type": "sweatpants",
+    "filters": [
+      "french terry",
+      "lounge",
+      "tapered",
+      "soft material"
+    ]
+  },
+  {
+    "id": 961,
+    "name": "Bose QuietComfort Ultra Wireless Earbuds",
+    "category": "electronics",
+    "subcategory": "audio",
+    "product_type": "earbuds",
+    "filters": [
+      "wireless",
+      "noise cancelling",
+      "waterproof"
+    ]
+  },
+  {
+    "id": 962,
+    "name": "Casper Original Hybrid Queen Mattress",
+    "category": "furniture",
+    "subcategory": "bedroom",
+    "product_type": "mattress",
+    "filters": [
+      "queen size",
+      "hybrid",
+      "medium firm"
+    ]
+  },
+  {
+    "id": 963,
+    "name": "Patagonia Torrentshell 3L Rain Jacket",
+    "category": "clothing",
+    "subcategory": "outerwear",
+    "product_type": "rain jacket",
+    "filters": [
+      "waterproof",
+      "breathable",
+      "hooded"
+    ]
+  },
+  {
+    "id": 964,
+    "name": "Vitamix 5200 Professional-Grade Blender",
+    "category": "kitchen",
+    "subcategory": "appliances",
+    "product_type": "blender",
+    "filters": [
+      "professional",
+      "64 oz",
+      "variable speed"
+    ]
+  },
+  {
+    "id": 965,
+    "name": "Yeti Rambler 36oz Water Bottle",
+    "category": "sports",
+    "subcategory": "hydration",
+    "product_type": "water bottle",
+    "filters": [
+      "stainless steel",
+      "insulated",
+      "36oz"
+    ]
+  },
+  {
+    "id": 966,
+    "name": "Dyson V15 Detect Cordless Vacuum",
+    "category": "home",
+    "subcategory": "cleaning",
+    "product_type": "vacuum",
+    "filters": [
+      "cordless",
+      "laser detection",
+      "HEPA filter"
+    ]
+  },
+  {
+    "id": 967,
+    "name": "Apple iPad Air 5th Gen 10.9-inch",
+    "category": "electronics",
+    "subcategory": "tablets",
+    "product_type": "tablet",
+    "filters": [
+      "M1 chip",
+      "10.9 inch",
+      "5G"
+    ]
+  },
+  {
+    "id": 968,
+    "name": "Herman Miller Aeron Office Chair",
+    "category": "furniture",
+    "subcategory": "office",
+    "product_type": "chair",
+    "filters": [
+      "ergonomic",
+      "adjustable",
+      "mesh"
+    ]
+  },
+  {
+    "id": 969,
+    "name": "Breville Barista Express Espresso Machine",
+    "category": "kitchen",
+    "subcategory": "appliances",
+    "product_type": "espresso machine",
+    "filters": [
+      "built-in grinder",
+      "15 bar pressure",
+      "steam wand"
+    ]
+  },
+  {
+    "id": 970,
+    "name": "Sony A7IV Mirrorless Camera",
+    "category": "electronics",
+    "subcategory": "cameras",
+    "product_type": "camera",
+    "filters": [
+      "full frame",
+      "33MP",
+      "4K video"
+    ]
+  },
+  {
+    "id": 971,
+    "name": "Lululemon Align High-Rise Leggings",
+    "category": "clothing",
+    "subcategory": "activewear",
+    "product_type": "leggings",
+    "filters": [
+      "high rise",
+      "buttery soft",
+      "pocket"
+    ]
+  },
+  {
+    "id": 972,
+    "name": "Dyson Airwrap Styler Complete",
+    "category": "beauty",
+    "subcategory": "hair care",
+    "product_type": "hair styler",
+    "filters": [
+      "multi-styler",
+      "cordless",
+      "heat control"
+    ]
+  },
+  {
+    "id": 973,
+    "name": "Nespresso Vertuo Next Coffee Maker",
+    "category": "kitchen",
+    "subcategory": "appliances",
+    "product_type": "coffee maker",
+    "filters": [
+      "single serve",
+      "centrifusion",
+      "bluetooth"
+    ]
+  },
+  {
+    "id": 974,
+    "name": "Samsung 65-inch QLED 4K Smart TV",
+    "category": "electronics",
+    "subcategory": "televisions",
+    "product_type": "TV",
+    "filters": [
+      "4K",
+      "QLED",
+      "smart"
+    ]
+  },
+  {
+    "id": 975,
+    "name": "Allbirds Tree Dasher Running Shoes",
+    "category": "footwear",
+    "subcategory": "athletic",
+    "product_type": "running shoes",
+    "filters": [
+      "sustainable",
+      "breathable",
+      "cushioned"
+    ]
+  },
+  {
+    "id": 976,
+    "name": "KitchenAid Artisan Stand Mixer",
+    "category": "kitchen",
+    "subcategory": "appliances",
+    "product_type": "stand mixer",
+    "filters": [
+      "5 quart",
+      "10 speeds",
+      "tilt-head"
+    ]
+  },
+  {
+    "id": 977,
+    "name": "Garmin Forerunner 945 GPS Watch",
+    "category": "electronics",
+    "subcategory": "wearables",
+    "product_type": "smartwatch",
+    "filters": [
+      "GPS",
+      "heart rate",
+      "music"
+    ]
+  },
+  {
+    "id": 978,
+    "name": "Tempur-Pedic ProAdapt Medium Mattress",
+    "category": "furniture",
+    "subcategory": "bedroom",
+    "product_type": "mattress",
+    "filters": [
+      "memory foam",
+      "medium firm",
+      "cooling"
+    ]
+  },
+  {
+    "id": 979,
+    "name": "Dyson Pure Cool Air Purifier",
+    "category": "home",
+    "subcategory": "air quality",
+    "product_type": "air purifier",
+    "filters": [
+      "HEPA",
+      "fan",
+      "smart"
+    ]
+  },
+  {
+    "id": 980,
+    "name": "Sony WH-1000XM4 Wireless Headphones",
+    "category": "electronics",
+    "subcategory": "audio",
+    "product_type": "headphones",
+    "filters": [
+      "wireless",
+      "noise cancelling",
+      "30hr battery"
+    ]
+  },
+  {
+    "id": 981,
+    "name": "Le Creuset Dutch Oven 5.5 Quart",
+    "category": "kitchen",
+    "subcategory": "cookware",
+    "product_type": "dutch oven",
+    "filters": [
+      "enameled cast iron",
+      "5.5 quart",
+      "lifetime warranty"
+    ]
+  },
+  {
+    "id": 982,
+    "name": "Apple MacBook Pro 14-inch M2 Pro",
+    "category": "electronics",
+    "subcategory": "computers",
+    "product_type": "laptop",
+    "filters": [
+      "M2 Pro",
+      "14 inch",
+      "16GB RAM"
+    ]
+  },
+  {
+    "id": 983,
+    "name": "Patagonia Nano Puff Jacket",
+    "category": "clothing",
+    "subcategory": "outerwear",
+    "product_type": "jacket",
+    "filters": [
+      "down alternative",
+      "water resistant",
+      "packable"
+    ]
+  },
+  {
+    "id": 984,
+    "name": "Ninja Foodi 8-in-1 Air Fryer",
+    "category": "kitchen",
+    "subcategory": "appliances",
+    "product_type": "air fryer",
+    "filters": [
+      "8-in-1",
+      "6.5 quart",
+      "digital"
+    ]
+  },
+  {
+    "id": 985,
+    "name": "Bose SoundLink Revolve+ Speaker",
+    "category": "electronics",
+    "subcategory": "audio",
+    "product_type": "bluetooth speaker",
+    "filters": [
+      "360° sound",
+      "waterproof",
+      "16hr battery"
+    ]
+  },
+  {
+    "id": 986,
+    "name": "Casper Original Pillow",
+    "category": "home",
+    "subcategory": "bedding",
+    "product_type": "pillow",
+    "filters": [
+      "memory foam",
+      "medium firm",
+      "hypoallergenic"
+    ]
+  },
+  {
+    "id": 987,
+    "name": "Sony Alpha ZV-E10 Camera",
+    "category": "electronics",
+    "subcategory": "cameras",
+    "product_type": "camera",
+    "filters": [
+      "mirrorless",
+      "4K video",
+      "vlogging"
+    ]
+  },
+  {
+    "id": 988,
+    "name": "Vitamix Ascent Series Blender",
+    "category": "kitchen",
+    "subcategory": "appliances",
+    "product_type": "blender",
+    "filters": [
+      "self-detect",
+      "64 oz",
+      "programmable"
+    ]
+  },
+  {
+    "id": 989,
+    "name": "Dyson Supersonic Hair Dryer",
+    "category": "beauty",
+    "subcategory": "hair care",
+    "product_type": "hair dryer",
+    "filters": [
+      "supersonic",
+      "heat control",
+      "magnetic attachments"
+    ]
+  },
+  {
+    "id": 990,
+    "name": "Samsung Galaxy S23 Ultra",
+    "category": "electronics",
+    "subcategory": "phones",
+    "product_type": "smartphone",
+    "filters": [
+      "200MP camera",
+      "S Pen",
+      "5G"
+    ]
+  },
+  {
+    "id": 991,
+    "name": "All-Clad D3 Stainless Steel Cookware Set",
+    "category": "kitchen",
+    "subcategory": "cookware",
+    "product_type": "cookware set",
+    "filters": [
+      "stainless steel",
+      "10 piece",
+      "dishwasher safe"
+    ]
+  },
+  {
+    "id": 992,
+    "name": "Garmin Venu 2 Plus Smartwatch",
+    "category": "electronics",
+    "subcategory": "wearables",
+    "product_type": "smartwatch",
+    "filters": [
+      "AMOLED",
+      "voice assistant",
+      "health tracking"
+    ]
+  },
+  {
+    "id": 993,
+    "name": "Tempur-Pedic Cloud Pillow",
+    "category": "home",
+    "subcategory": "bedding",
+    "product_type": "pillow",
+    "filters": [
+      "memory foam",
+      "cooling",
+      "adjustable"
+    ]
+  },
+  {
+    "id": 994,
+    "name": "KitchenAid Food Processor",
+    "category": "kitchen",
+    "subcategory": "appliances",
+    "product_type": "food processor",
+    "filters": [
+      "13 cup",
+      "dicing",
+      "slicing"
+    ]
+  },
+  {
+    "id": 995,
+    "name": "Sony WF-1000XM4 Wireless Earbuds",
+    "category": "electronics",
+    "subcategory": "audio",
+    "product_type": "earbuds",
+    "filters": [
+      "wireless",
+      "noise cancelling",
+      "24hr battery"
+    ]
+  },
+  {
+    "id": 996,
+    "name": "Le Creuset Signature Skillet",
+    "category": "kitchen",
+    "subcategory": "cookware",
+    "product_type": "skillet",
+    "filters": [
+      "enameled cast iron",
+      "10.25 inch",
+      "lifetime warranty"
+    ]
+  },
+  {
+    "id": 997,
+    "name": "Dyson V12 Detect Slim Vacuum",
+    "category": "home",
+    "subcategory": "cleaning",
+    "product_type": "vacuum",
+    "filters": [
+      "cordless",
+      "laser detection",
+      "lightweight"
+    ]
+  },
+  {
+    "id": 998,
+    "name": "Apple AirPods Pro 2nd Gen",
+    "category": "electronics",
+    "subcategory": "audio",
+    "product_type": "earbuds",
+    "filters": [
+      "wireless",
+      "noise cancelling",
+      "spatial audio"
+    ]
+  },
+  {
+    "id": 999,
+    "name": "Vitamix Explorian Blender",
+    "category": "kitchen",
+    "subcategory": "appliances",
+    "product_type": "blender",
+    "filters": [
+      "variable speed",
+      "48 oz",
+      "BPA-free"
+    ]
+  },
+  {
+    "id": 1000,
+    "name": "Samsung 55-inch OLED 4K Smart TV",
+    "category": "electronics",
+    "subcategory": "televisions",
+    "product_type": "TV",
+    "filters": [
+      "4K",
+      "OLED",
+      "smart"
     ]
   }
 ]

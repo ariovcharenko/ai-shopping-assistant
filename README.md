@@ -1,142 +1,80 @@
-# Semantic Product Search Evaluation System
+# Cline - AI-Powered Product Search
 
-A comprehensive system for evaluating and analyzing the performance of natural language product search queries against a product catalog.
+An intelligent product search application that understands natural language queries and maps them to relevant products in the catalog.
 
-## Project Overview
+## Features
 
-This project provides tools to evaluate how well a semantic search system interprets natural language queries and matches them to products in a catalog. It includes evaluation scripts, visualization tools, and audit capabilities to identify and fix matching issues.
+- Natural language processing for product search
+- 1000+ product catalog
+- Real-time search results
+- Modern React frontend
+- Node.js/Express backend
+- OpenAI integration
 
-## How Semantic Evaluation Works
+## Setup Instructions
 
-The semantic evaluation system works by:
-
-1. **Query Analysis**: Processing natural language queries to extract product types and filters
-2. **Catalog Matching**: Using case-insensitive and partial matching to find relevant products
-3. **Result Tagging**: Categorizing results with tags to identify match quality and failure reasons
-4. **Performance Metrics**: Calculating match rates, average matches per query, and identifying unmatched product types
-5. **Audit System**: Verifying tag accuracy and identifying false negatives
-
-## Project Structure
-
-- `client/`: React frontend application
-- `server/`: Node.js + Express backend application
-- `ResearchEvaluation/`: Evaluation scripts and visualization tools
-  - `improved-evaluate-queries.py`: Main evaluation script with semantic matching
-  - `extract_missing_product_types.py`: Script to identify missing product types
-  - `audit_tag_accuracy.py`: Script to audit tag accuracy and find false negatives
-  - `extract_audit_insights.py`: Script to extract insights from audit reports
-  - `serve_visualization.py`: Web server for the visualization tool
-  - `reports/`: Directory containing evaluation reports and logs
-  - `visualization/`: Web-based visualization interface
-
-## Prerequisites
-
-- Node.js (v14 or higher)
-- npm (v6 or higher)
-- Python 3.6+
-- OpenAI API key (set in `server/.env`)
-
-## Running the Application
-
-### Windows Setup
-
-1. Make sure you have Node.js and npm installed
-2. Clone this repository
-3. Run the application using the provided batch file:
-   ```
-   start-app.bat
-   ```
-   This will:
-   - Start the backend server on port 5001
-   - Start the frontend client on port 5173 (or 3000 for the older client)
-   - Open the application in your default browser
-
-### macOS Setup
-
-1. Install Node.js using one of these methods:
-   - Via Homebrew (recommended):
-     ```
-     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-     brew install node
-     ```
-   - Or download from the [Node.js website](https://nodejs.org/en/download/)
-
-2. Clone this repository
-
-3. Make the startup script executable:
-   ```
-   chmod +x start-app.sh
-   ```
-
-4. Run the application:
-   ```
-   ./start-app.sh
-   ```
-   This will:
-   - Start the backend server on port 5001
-   - Start the frontend client on port 5173
-   - Open the application in Safari
-
-### Troubleshooting macOS Setup
-
-If you encounter permission issues with the node_modules executables, run:
-```
-chmod -R +x server/node_modules/.bin/* frontend/node_modules/.bin/*
-```
-
-## Running the Evaluation
-
+1. Clone the repository:
 ```bash
-# Run the improved evaluation script
-python ResearchEvaluation/improved-evaluate-queries.py
+git clone [your-repo-url]
+cd Cline
 ```
 
-This will:
-- Load the evaluation dataset and product catalog
-- Perform matching with case-insensitive and partial matching
-- Generate detailed logs with tags for each query
-- Calculate and save summary metrics
-- Identify missing product types
-
-### Viewing Results with the Visualization Tool
-
+2. Install dependencies for both frontend and backend:
 ```bash
-# Start the visualization server
-python ResearchEvaluation/serve_visualization.py
+# Install backend dependencies
+cd server
+npm install
+
+# Install frontend dependencies
+cd ../frontend
+npm install
 ```
 
-This will:
-- Start a local HTTP server on port 8000
-- Automatically open your browser to the visualization page
-- Display summary metrics, query results, and filter statistics
+3. Configure environment variables:
+```bash
+# In the server directory
+cp .env.template .env
+# Edit .env and add your OpenAI API key
+```
 
-## Current Statistics
+4. Start the backend server:
+```bash
+# In the server directory
+npm start
+```
 
-- **Match Rate**: 99% of queries successfully match products in the catalog
-- **Average Matches**: 5.42 products matched per query
-- **Unmatched Types**: Only "aa batteries" remains unmatched in the catalog
-- **False Negatives**: 0 false negatives found in the latest audit
+5. Start the frontend development server:
+```bash
+# In the frontend directory
+npm run dev
+```
 
-## Audit Reports
+6. Access the application:
+- Frontend: http://localhost:5173
+- Backend API: http://localhost:5004
 
-The tag audit system verifies the accuracy of product type and filter matching. The latest audit report can be found in `ResearchEvaluation/reports/tag-audit-report.json`.
+## Example Queries
 
-Key findings:
-- No false negatives detected in the current system
-- All product types that exist in the catalog are being properly matched
-- The improved matching algorithm successfully handles partial matches and filter variations
+The application understands natural language queries like:
+- "I need something to keep my coffee hot during morning meetings"
+- "Looking for comfy bottoms for lounging at home"
+- "Need something to carry my laptop and look professional"
 
-## Troubleshooting
+## Technology Stack
 
-### "An error occurred while processing your search"
+- Frontend: React, Vite, TailwindCSS
+- Backend: Node.js, Express
+- AI: OpenAI GPT-3.5/4
+- Database: JSON-based product catalog
 
-This error can occur for several reasons:
+## Contributing
 
-1. **Server not running**: Make sure the server is running on port 5001
-2. **OpenAI API key issues**: Check if your API key is valid and has sufficient quota
-3. **Network issues**: Ensure you have a stable internet connection
-4. **Port conflicts**: If port 5001 is already in use, change it in `server/.env` and update the proxy in `client/package.json`
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a new Pull Request
 
 ## License
 
-ISC
+MIT License

@@ -1,6 +1,19 @@
-.env
+# Dependencies
 node_modules/
+
+# Environment variables
+.env
+
+# Logs
+*.log
+npm-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
 client/node_modules/
 frontend/node_modules/
 .DS_Store
-*.log

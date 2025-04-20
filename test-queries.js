@@ -1,54 +1,27 @@
-const axios = require('axios');
-
-const API_URL = 'http://localhost:5003/api/search';
-
-const testQueries = [
-  {
-    query: "need denim pants",
-    expectedProductType: "jeans"
-  },
-  {
-    query: "gift for a 6-year-old",
-    expectedProductType: "educational toy"
-  },
-  {
-    query: "warm jacket for camping",
-    expectedProductType: "fleece jacket"
-  }
-];
-
-async function runTests() {
-  console.log('Running test queries...\n');
-  
-  for (const test of testQueries) {
-    try {
-      console.log(`Testing query: "${test.query}"`);
-      console.log(`Expected product_type: "${test.expectedProductType}"`);
-      
-      const response = await axios.post(API_URL, { query: test.query });
-      
-      console.log('API Response:');
-      console.log(JSON.stringify(response.data.searchParams, null, 2));
-      
-      const actualProductType = response.data.searchParams.product_type;
-      const success = actualProductType === test.expectedProductType;
-      
-      console.log(`Actual product_type: "${actualProductType}"`);
-      console.log(`Test ${success ? 'PASSED ✅' : 'FAILED ❌'}`);
-      
-      if (!success) {
-        console.log(`Expected "${test.expectedProductType}" but got "${actualProductType}"`);
-      }
-      
-      console.log('\n-----------------------------------\n');
-    } catch (error) {
-      console.error(`Error testing query "${test.query}":`, error.message);
-      if (error.response) {
-        console.error('Response data:', error.response.data);
-      }
-      console.log('\n-----------------------------------\n');
+module.exports = [
+    {
+        query: "black dress",
+        expectedCategories: ["Dresses"],
+        expectedPriceRange: { min: 20, max: 200 }
+    },
+    {
+        query: "men's running shoes",
+        expectedCategories: ["Shoes", "Athletic"],
+        expectedPriceRange: { min: 50, max: 150 }
+    },
+    {
+        query: "leather handbag",
+        expectedCategories: ["Accessories", "Bags"],
+        expectedPriceRange: { min: 30, max: 300 }
+    },
+    {
+        query: "casual jeans",
+        expectedCategories: ["Pants", "Denim"],
+        expectedPriceRange: { min: 25, max: 100 }
+    },
+    {
+        query: "summer t-shirt",
+        expectedCategories: ["Tops"],
+        expectedPriceRange: { min: 10, max: 50 }
     }
-  }
-}
-
-runTests();
+]; 

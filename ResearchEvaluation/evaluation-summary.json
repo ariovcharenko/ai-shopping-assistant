@@ -1,0 +1,38 @@
+{
+  "total_queries": 100,
+  "queries_with_matches": 99,
+  "match_percentage": 99.0,
+  "avg_matches_per_query": 5.42,
+  "top_unmatched_product_types": [
+    {
+      "type": "aa batteries",
+      "count": 1
+    }
+  ],
+  "unmatched_filters": [
+    "under $30",
+    "cork",
+    "xl",
+    "tension rod",
+    "slip on",
+    "satin",
+    "8 pack",
+    "silky",
+    "spf 30",
+    "nightvision",
+    "with pockets",
+    "40l",
+    "age 5-6",
+    "led light",
+    "swivel",
+    "suction cup",
+    "workout",
+    "usb c",
+    "deep pocket",
+    "brown",
+    "velcro",
+    "cheap",
+    "6 qt",
+    "for car"
+  ]
+}

@@ -81,132 +81,101 @@ app.use(express.static(path.join(__dirname, '../client/build')));
 // Simple in-memory storage for user interactions (in a real app, this would be a database)
 const userInteractions = [];
 
-// Helper function to filter products based on search parameters
+// Remove hardcoded mappings and simplify filterProducts function
 function filterProducts(searchParams) {
-  // Enhanced category mapping with more flexible matching
-  let categoryMapping = {
-    'clothing': ['women', 'men', 'unisex', 'clothing', 'apparel', 'fashion', 'tops', 'bottoms', 'footwear', 't-shirts', 'shirts', 'tees'],
-    'electronics': ['electronics', 'unisex', 'audio', 'computers', 'phones'],
-    'home': ['home', 'household', 'unisex', 'furniture', 'bedding', 'mattress', 'bedroom', 'living room'],
-    'furniture': ['furniture', 'home', 'unisex', 'bedroom', 'living room', 'office', 'bedding', 'mattress', 'beds'],
-    'bedding': ['bedding', 'mattress', 'bedroom', 'furniture', 'home'],
-    'beauty': ['beauty', 'unisex', 'personal care'],
-    'kitchen': ['kitchen', 'home', 'unisex', 'cookware', 'appliances'],
-    'outdoor': ['outdoor', 'sports', 'unisex', 'camping', 'hiking'],
-    'office': ['office', 'furniture', 'unisex', 'supplies'],
-    'travel': ['travel', 'accessories', 'unisex', 'luggage'],
-    'sports': ['sports', 'outdoor', 'unisex', 'fitness'],
-    'footwear': ['footwear', 'unisex', 'shoes', 'boots', 'sneakers'],
-    'accessories': ['accessories', 'unisex', 'jewelry', 'bags'],
-    'pet supplies': ['pet supplies', 'unisex', 'pets'],
-    'toys': ['toys', 'unisex', 'games'],
-    'books': ['books', 'unisex', 'media'],
-    'health': ['health', 'unisex', 'medical'],
-    'baby': ['baby', 'unisex', 'kids'],
-    'garden': ['garden', 'outdoor', 'unisex', 'lawn'],
-    'eyewear': ['eyewear', 'accessories', 'unisex', 'glasses']
-  };
-  
-  // Subcategory mapping for better matching
-  const subcategoryMapping = {
-    'bedding': ['mattress', 'bedroom', 'bed', 'sleep'],
-    'mattress': ['bedding', 'bedroom', 'bed', 'sleep'],
-    'bedroom': ['bedding', 'mattress', 'bed', 'sleep'],
-    'clothing': ['tops', 't-shirts', 'shirts', 'apparel', 'wear'],
-    'tops': ['t-shirts', 'shirts', 'clothing', 'apparel']
-  };
-  
   return productCatalog.filter(product => {
-    // Enhanced category matching
+    // Enhanced category matching with semantic variations
     if (searchParams.category) {
-      const mappedCategories = categoryMapping[searchParams.category.toLowerCase()] || [];
-      const productCategoryLower = product.category.toLowerCase();
-      const searchCategoryLower = searchParams.category.toLowerCase();
+      const productCategory = product.category.toLowerCase();
+      const searchCategory = searchParams.category.toLowerCase();
       
-      // More flexible category matching
-      const categoryMatch = mappedCategories.some(cat => 
-        cat.toLowerCase() === productCategoryLower ||
-        productCategoryLower.includes(cat.toLowerCase()) ||
-        cat.toLowerCase().includes(productCategoryLower) ||
-        productCategoryLower.split(' ').some(word => cat.toLowerCase().includes(word)) ||
-        cat.toLowerCase().split(' ').some(word => productCategoryLower.includes(word))
-      );
+      // Handle semantic variations (e.g., "clothing" matches "apparel")
+      const categoryMatches = 
+        productCategory.includes(searchCategory) ||
+        searchCategory.includes(productCategory) ||
+        // Common semantic mappings
+        (searchCategory === 'clothing' && productCategory.includes('apparel')) ||
+        (searchCategory === 'apparel' && productCategory.includes('clothing'));
       
-      if (!categoryMatch && 
-          !productCategoryLower.includes(searchCategoryLower) &&
-          !searchCategoryLower.includes(productCategoryLower)) {
+      if (!categoryMatches) {
         return false;
       }
     }
     
-    // Enhanced subcategory matching with mapping
+    // Enhanced subcategory matching with semantic variations
     if (searchParams.subcategory) {
-      const searchSubCat = searchParams.subcategory.toLowerCase();
       const productSubCat = product.subcategory.toLowerCase();
+      const searchSubCat = searchParams.subcategory.toLowerCase();
       
-      // Get mapped subcategories
-      const mappedSubcategories = subcategoryMapping[searchSubCat] || [];
-      const productMappedSubcategories = subcategoryMapping[productSubCat] || [];
-      
-      // Check for matches including mapped subcategories
-      const subcategoryMatch = 
+      // Handle semantic variations and related subcategories
+      const subcategoryMatches = 
         productSubCat.includes(searchSubCat) ||
         searchSubCat.includes(productSubCat) ||
-        mappedSubcategories.some(sub => productSubCat.includes(sub.toLowerCase())) ||
-        productMappedSubcategories.some(sub => searchSubCat.includes(sub.toLowerCase())) ||
-        productSubCat.split(' ').some(word => searchSubCat.includes(word)) ||
-        searchSubCat.split(' ').some(word => productSubCat.includes(word)) ||
-        productSubCat.split('-').some(part => searchSubCat.includes(part)) ||
-        searchSubCat.split('-').some(part => productSubCat.includes(part));
+        // Common semantic mappings for subcategories
+        (searchSubCat === 'pants' && (productSubCat.includes('bottoms') || productSubCat.includes('trousers'))) ||
+        (searchSubCat === 'audio' && productSubCat.includes('sound'));
       
-      if (!subcategoryMatch) {
+      if (!subcategoryMatches) {
         return false;
       }
     }
     
-    // Enhanced product type matching
+    // Enhanced product type matching with semantic variations
     if (searchParams.product_type) {
       const searchType = searchParams.product_type.toLowerCase();
       const productType = product.product_type.toLowerCase();
+      const productName = product.name.toLowerCase();
       
-      // More flexible product type matching
-      const searchWords = searchType.split(/[\s-]+/);
-      const productWords = productType.split(/[\s-]+/);
+      // Handle semantic variations and related product types
+      const typeMatches = 
+        productType.includes(searchType) ||
+        searchType.includes(productType) ||
+        productName.includes(searchType) ||
+        // Common semantic mappings for product types
+        (searchType === 'jeans' && (
+          productType.includes('denim') || 
+          productName.includes('denim') || 
+          productType.includes('pants')
+        )) ||
+        (searchType === 'earbuds' && (
+          productType.includes('headphone') ||
+          productName.includes('wireless') ||
+          productName.includes('bluetooth')
+        ));
       
-      const hasMatch = searchWords.some(word => 
-        productWords.some(pWord => 
-          pWord.includes(word) || word.includes(pWord) ||
-          pWord.split('-').some(part => word.includes(part)) ||
-          word.split('-').some(part => pWord.includes(part)) ||
-          pWord.split(' ').some(part => word.includes(part)) ||
-          word.split(' ').some(part => pWord.includes(part))
-        )
-      );
-      
-      if (!hasMatch) {
+      if (!typeMatches) {
         return false;
       }
     }
     
-    // Match filters/attributes (at least one filter should match if filters are provided)
+    // Enhanced filter matching with semantic variations
     if (searchParams.filters && searchParams.filters.length > 0) {
-      const hasMatchingAttribute = searchParams.filters.some(filter => 
-        product.filters.some(attr => {
-          // Normalize both strings for comparison: lowercase and replace hyphens/underscores with spaces
-          const normalizedFilter = filter.toLowerCase().replace(/[-_]/g, ' ');
-          const normalizedAttr = attr.toLowerCase().replace(/[-_]/g, ' ');
-          
-          // Split into words and check for word-level matches
-          const filterWords = normalizedFilter.split(' ');
-          const attrWords = normalizedAttr.split(' ');
-          
-          return filterWords.some(word => 
-            attrWords.some(aWord => 
-              aWord.includes(word) || word.includes(aWord)
-            )
-          );
-        })
-      );
+      const hasMatchingAttribute = searchParams.filters.some(filter => {
+        const filterLower = filter.toLowerCase();
+        
+        // Check product filters with semantic variations
+        if (product.filters && product.filters.length > 0) {
+          return product.filters.some(attr => {
+            const attrLower = attr.toLowerCase();
+            return (
+              attrLower.includes(filterLower) ||
+              filterLower.includes(attrLower) ||
+              // Common semantic mappings for filters
+              (filterLower === 'wireless' && attrLower.includes('bluetooth')) ||
+              (filterLower === 'noise cancellation' && (
+                attrLower.includes('noise') || 
+                attrLower.includes('anc')
+              ))
+            );
+          });
+        }
+        
+        // Also check product name and description for filter matches
+        return (
+          productName.includes(filterLower) ||
+          (product.description && product.description.toLowerCase().includes(filterLower))
+        );
+      });
       
       if (!hasMatchingAttribute) {
         return false;
@@ -256,53 +225,35 @@ function logUnrecognizedQuery(query, output) {
   return logEntry;
 }
 
+// Simplify normalization to focus on basic standardization
 function normalizeProductOutput(output) {
-  const synonymMap = {
-    "pants": {
-      context: "denim",
-      replaceWith: "jeans"
-    },
-    "blouse": {
-      context: "silk",
-      replaceWith: "shirt"
-    },
-    "hoodie": {
-      context: "comfy",
-      replaceWith: "sweatshirt"
-    }
-  };
-
-  // Normalize plural forms
-  const pluralMap = {
-    't-shirts': 't-shirt',
-    'shirts': 'shirt',
-    'pants': 'pant',
-    'jeans': 'jean',
-    'shoes': 'shoe',
-    'boots': 'boot',
-    'headphones': 'headphone'
-  };
-
   const normalized = { ...output };
-
-  // Normalize product_type using context
-  for (const [term, rule] of Object.entries(synonymMap)) {
-    if (
-      normalized.product_type?.toLowerCase() === term &&
-      normalized.filters?.some(f => f.toLowerCase().includes(rule.context))
-    ) {
-      normalized.product_type = rule.replaceWith;
-    }
-  }
-
-  // Normalize plural forms
+  
+  // Basic standardization of terms
   if (normalized.product_type) {
-    const productTypeLower = normalized.product_type.toLowerCase();
-    if (pluralMap[productTypeLower]) {
-      normalized.product_type = pluralMap[productTypeLower];
+    const type = normalized.product_type.toLowerCase();
+    // Common product type normalizations
+    if (type.includes('jean') || type.includes('denim')) {
+      normalized.product_type = 'jeans';
+    } else if (type.includes('earbud') || type.includes('headphone')) {
+      normalized.product_type = 'earbuds';
     }
   }
-
+  
+  if (normalized.filters) {
+    normalized.filters = normalized.filters.map(filter => {
+      const filterLower = filter.toLowerCase();
+      // Common filter normalizations
+      if (filterLower.includes('noise') && filterLower.includes('cancel')) {
+        return 'noise cancellation';
+      }
+      if (filterLower.includes('bluetooth') || filterLower.includes('wireless')) {
+        return 'wireless';
+      }
+      return filterLower;
+    });
+  }
+  
   return normalized;
 }
 
@@ -511,3 +462,4 @@ function startServer(port) {
 }
 
 startServer(PORT);
+

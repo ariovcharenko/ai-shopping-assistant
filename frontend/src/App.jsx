@@ -19,7 +19,7 @@ function App() {
     const checkEnvironment = async () => {
       try {
         // Try to connect to the backend server
-        await axios.get('http://localhost:50041/api/health');
+        await axios.get('http://localhost:5004/api/health');
         setNodeInstalled(true);
       } catch (err) {
         console.error('Backend server not available:', err);
@@ -49,7 +49,7 @@ function App() {
     setError(null);
 
     try {
-      const response = await axios.post('http://localhost:50041/api/search', { query });
+      const response = await axios.post('http://localhost:5004/api/search', { query });
       setResults({
         ...response.data.searchParams,
         hasGenericValues: response.data.hasGenericValues,

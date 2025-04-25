@@ -63,7 +63,7 @@ open -a Safari "http://localhost:5181"
 echo
 echo "App started successfully!"
 echo
-echo "Backend: http://localhost:5003"
+echo "Backend: http://localhost:5004"
 echo "Frontend: http://localhost:5181"
 echo
 echo "To stop the application, press Ctrl+C"

@@ -1,11 +1,11 @@
 {
-  "name": "server",
+  "name": "search-analysis-app-server",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
-    "dev": "nodemon index.js",
+    "start": "node start-server.js",
+    "dev": "nodemon start-server.js",
     "check-port": "node checkPort.js",
     "safe-start": "node checkPort.js && node index.js",
     "safe-dev": "node checkPort.js && nodemon index.js"

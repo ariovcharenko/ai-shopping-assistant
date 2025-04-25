@@ -76,22 +76,21 @@ function SearchResults({ searchParams, products, onFeedback }) {
                     {product.category} / {product.subcategory} / {product.product_type}
                   </p>
                   <div className="mt-2 flex flex-wrap gap-1">
-                    {product.attributes.slice(0, 3).map((attr, index) => (
+                    {product.filters && product.filters.slice(0, 3).map((filter, index) => (
                       <span 
                         key={index}
                         className="inline-block bg-gray-100 text-gray-800 px-2 py-0.5 rounded-full text-xs"
                       >
-                        {attr}
+                        {filter}
                       </span>
                     ))}
-                    {product.attributes.length > 3 && (
+                    {product.filters && product.filters.length > 3 && (
                       <span className="inline-block text-gray-500 text-xs">
-                        +{product.attributes.length - 3} more
+                        +{product.filters.length - 3} more
                       </span>
                     )}
                   </div>
-                  <div className="mt-3 flex justify-between items-center">
-                    <span className="font-bold text-gray-900">${product.price.toFixed(2)}</span>
+                  <div className="mt-3 flex justify-end items-center">
                     <button className="px-3 py-1 bg-blue-600 text-white rounded-md text-sm hover:bg-blue-700">
                       View
                     </button>

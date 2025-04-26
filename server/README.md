@@ -33,8 +33,9 @@ npm install
 3. Configure environment variables:
 ```bash
 # In the server directory
-cp .env.template .env
-# Edit .env and add your OpenAI API key
+# Create a .env file and add your OpenAI API key
+OPENAI_API_KEY=<your-api-key>
+PORT=5004
 ```
 
 4. Start the backend server:

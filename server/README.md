@@ -1,81 +1,51 @@
-# Cline - AI-Powered Product Search
+# AI-Powered Product Search - Backend
 
-An intelligent product search application that understands natural language queries and maps them to relevant products in the catalog.
+This is the backend for the AI-Powered Product Search application, built with Node.js and Express.
 
 ## Features
 
 - Natural language processing for product search
 - 1000+ product catalog
-- Real-time search results
-- Modern React frontend
-- Node.js/Express backend
 - OpenAI integration
+- RESTful API endpoints
+- JSON-based product database
 
 ## Setup Instructions
 
-1. Clone the repository:
+1. Install dependencies:
 ```bash
-git clone [your-repo-url]
-cd Cline
-```
-
-2. Install dependencies for both frontend and backend:
-```bash
-# Install backend dependencies
-cd server
-npm install
-
-# Install frontend dependencies
-cd ../frontend
 npm install
 ```
 
-3. Configure environment variables:
+2. Configure environment variables:
 ```bash
-# In the server directory
 # Create a .env file and add your OpenAI API key
 OPENAI_API_KEY=<your-api-key>
 PORT=5004
 ```
 
-4. Start the backend server:
+3. Start the server:
 ```bash
-# In the server directory
 npm start
 ```
 
-5. Start the frontend development server:
-```bash
-# In the frontend directory
-npm run dev
-```
-
-6. Access the application:
-- Frontend: http://localhost:5173
+4. Access the API:
 - Backend API: http://localhost:5004
 
-## Example Queries
+## Available Scripts
 
-The application understands natural language queries like:
-- "I need something to keep my coffee hot during morning meetings"
-- "Looking for comfy bottoms for lounging at home"
-- "Need something to carry my laptop and look professional"
+- `npm start` - Start the server
+- `npm run dev` - Start the server with nodemon for development
+- `npm run safe-dev` - Start the server with port checking
+
+## API Endpoints
+
+- `POST /api/search` - Search for products using natural language
+- `GET /api/products` - Get all products
+- `GET /api/health` - Check server health
 
 ## Technology Stack
 
-- Frontend: React, Vite, TailwindCSS
-- Backend: Node.js, Express
-- AI: OpenAI GPT-3.5/4
-- Database: JSON-based product catalog
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a new Pull Request
-
-## License
-
-MIT License
+- Node.js
+- Express
+- OpenAI API

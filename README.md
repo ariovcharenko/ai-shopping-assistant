@@ -1,4 +1,4 @@
-# Cline - AI-Powered Product Search
+# AI-Powered Product Search
 
 An intelligent product search application that understands natural language queries and maps them to relevant products in the catalog.
 

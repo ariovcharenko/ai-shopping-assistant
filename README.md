@@ -16,7 +16,7 @@ An intelligent product search application that understands natural language quer
 1. Clone the repository:
 ```bash
 git clone [your-repo-url]
-cd Cline
+cd SearchAnalysisApp
 ```
 
 2. Install dependencies for both frontend and backend:
@@ -37,43 +37,28 @@ cp .env.template .env
 # Edit .env and add your OpenAI API key
 ```
 
-4. Start the backend server:
+4. Start the application:
 ```bash
-# In the server directory
-npm start
+# From the root directory
+./start-app.sh
 ```
 
-5. Start the frontend development server:
-```bash
-# In the frontend directory
-npm run dev
-```
+The application will automatically:
+- Start the backend server on port 5004
+- Start the frontend on port 5173
+- Open the application in your default browser
 
-6. Access the application:
-- Frontend: http://localhost:5173
-- Backend API: http://localhost:5004
+## Environment Variables
 
-## Example Queries
+Required environment variables in `.env`:
+- `OPENAI_API_KEY`: Your OpenAI API key
+- `PORT`: Backend server port (default: 5004)
 
-The application understands natural language queries like:
-- "I need something to keep my coffee hot during morning meetings"
-- "Looking for comfy bottoms for lounging at home"
-- "Need something to carry my laptop and look professional"
+## Testing
 
-## Technology Stack
-
-- Frontend: React, Vite, TailwindCSS
-- Backend: Node.js, Express
-- AI: OpenAI GPT-3.5/4
-- Database: JSON-based product catalog
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a new Pull Request
+Make sure the application is connected to:
+1. Product catalog (located in server/data/product-catalog.json)
+2. OpenAI API (verify your API key in .env)
 
 ## License
 

@@ -1,9 +1,0 @@
-{
-  "summary": {
-    "total_queries": 100,
-    "false_negatives": 0,
-    "most_common_missing_filters": [],
-    "top_product_types_with_filter_mismatch": []
-  },
-  "false_negatives": []
-}

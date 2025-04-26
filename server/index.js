@@ -6,10 +6,21 @@ const fs = require('fs');
 const net = require('net');
 const productCatalog = (() => {
   try {
-    const data = fs.readFileSync(path.join(__dirname, 'data', 'product-catalog.json'), 'utf8');
+    console.log('Loading product catalog...');
+    const catalogPath = path.join(__dirname, 'data', 'product-catalog.json');
+    console.log('Catalog path:', catalogPath);
+    
+    const data = fs.readFileSync(catalogPath, 'utf8');
+    console.log('Raw catalog data length:', data.length);
+    
     const products = JSON.parse(data);
-    console.log(`Successfully loaded ${products.length} products from catalog`);
-    return products.map(product => ({
+    console.log('Successfully parsed catalog. Products:', products.length);
+    
+    // Log some sample products for verification
+    console.log('\nSample products:');
+    products.slice(0, 3).forEach(p => console.log(JSON.stringify(p, null, 2)));
+    
+    const mappedProducts = products.map(product => ({
       id: parseInt(product.id),
       name: product.name,
       category: product.category,
@@ -17,8 +28,14 @@ const productCatalog = (() => {
       product_type: product.product_type,
       filters: product.filters || []
     }));
+    
+    console.log(`\nSuccessfully mapped ${mappedProducts.length} products`);
+    console.log('First mapped product:', JSON.stringify(mappedProducts[0], null, 2));
+    
+    return mappedProducts;
   } catch (error) {
     console.error('Error loading product catalog:', error);
+    console.error('Stack trace:', error.stack);
     return [];
   }
 })();
@@ -81,107 +98,295 @@ app.use(express.static(path.join(__dirname, '../client/build')));
 // Simple in-memory storage for user interactions (in a real app, this would be a database)
 const userInteractions = [];
 
-// Remove hardcoded mappings and simplify filterProducts function
+// Add semantic matching helpers
+function getSemanticScore(text1, text2) {
+  // Convert to lowercase and split into words
+  const words1 = text1.toLowerCase().split(/\W+/);
+  const words2 = text2.toLowerCase().split(/\W+/);
+  
+  // Common product-related synonyms
+  const synonyms = {
+    'jeans': ['denim', 'pants', 'trousers'],
+    'kids': ['children', 'child', 'young', 'youth'],
+    'toys': ['games', 'plaything', 'educational'],
+    'gift': ['present', 'surprise'],
+  };
+  
+  // Check for direct matches and synonyms
+  let score = 0;
+  for (const word1 of words1) {
+    if (words2.includes(word1)) {
+      score += 1;
+    }
+    // Check synonyms
+    for (const [key, values] of Object.entries(synonyms)) {
+      if ((word1 === key && words2.some(w2 => values.includes(w2))) ||
+          (values.includes(word1) && words2.includes(key))) {
+        score += 0.8;
+      }
+    }
+  }
+  
+  return score / Math.max(words1.length, words2.length);
+}
+
+// Add contextual matching helpers
+function getActivityMatch(product, context) {
+  if (!context?.activity) return true;
+  
+  const activityMappings = {
+    'working out': ['activewear', 'athletic', 'gym', 'sport'],
+    'lounging': ['loungewear', 'comfortable', 'casual', 'soft'],
+    'sleeping': ['sleepwear', 'pajamas', 'nightwear'],
+    'running': ['activewear', 'athletic', 'running']
+  };
+
+  const relevantTerms = activityMappings[context.activity] || [];
+  const productText = [
+    product.category,
+    product.subcategory,
+    product.product_type,
+    ...product.filters,
+    product.name
+  ].join(' ').toLowerCase();
+
+  return relevantTerms.some(term => productText.includes(term));
+}
+
+function getLocationMatch(product, context) {
+  if (!context?.location) return true;
+
+  const locationMappings = {
+    'home': ['loungewear', 'indoor', 'comfortable', 'home'],
+    'gym': ['activewear', 'athletic', 'gym', 'sport'],
+    'outdoor': ['outdoor', 'weather', 'protective', 'waterproof']
+  };
+
+  const relevantTerms = locationMappings[context.location] || [];
+  const productText = [
+    product.category,
+    product.subcategory,
+    product.product_type,
+    ...product.filters,
+    product.name
+  ].join(' ').toLowerCase();
+
+  return relevantTerms.some(term => productText.includes(term));
+}
+
+// Add catalog-specific matching helpers
+function getCatalogMatch(product, searchParams) {
+  // Define actual catalog terms
+  const catalogTerms = {
+    activewear: {
+      categories: ['clothing', 'sports'],
+      subcategories: ['activewear', 'athletic', 'fitness'],
+      productTypes: ['t-shirt', 'tank top', 'sports bra', 'yoga pants', 'running shorts', 'leggings'],
+      filters: ['moisture wicking', 'breathable', 'quick dry', 'flexible']
+    },
+    loungewear: {
+      categories: ['clothing'],
+      subcategories: ['loungewear', 'sleepwear', 'bottoms'],
+      productTypes: ['sweatpants', 'joggers', 'pajama set', 'lounge pants'],
+      filters: ['soft', 'comfortable', 'elastic waist', 'fleece']
+    }
+  };
+
+  // Get relevant terms based on activity
+  const activityType = searchParams.context?.activity === 'working out' ? 'activewear' : 
+                      searchParams.context?.activity === 'lounging' ? 'loungewear' : null;
+  
+  if (!activityType) return true;
+
+  const terms = catalogTerms[activityType];
+  const productText = [
+    product.category,
+    product.subcategory,
+    product.product_type,
+    ...product.filters,
+    product.name
+  ].join(' ').toLowerCase();
+
+  // Check if product matches the activity-specific terms
+  const categoryMatch = terms.categories.some(cat => product.category.toLowerCase() === cat);
+  const subcategoryMatch = terms.subcategories.some(sub => productText.includes(sub));
+  const productTypeMatch = terms.productTypes.some(type => productText.includes(type));
+  const filterMatch = terms.filters.some(filter => productText.includes(filter));
+
+  return categoryMatch || subcategoryMatch || productTypeMatch || filterMatch;
+}
+
 function filterProducts(searchParams) {
+  // Add debug logging
+  console.log('Search parameters:', JSON.stringify(searchParams, null, 2));
+
+  // Special handling for athletic wear
+  if (searchParams.context?.activity === 'working out' || searchParams.context?.activity === 'running') {
+    console.log('Using athletic wear matching logic');
+    
+    return productCatalog.filter(product => {
+      // Get all product text for matching
+      const productText = [
+        product.category,
+        product.subcategory,
+        product.product_type,
+        ...product.filters,
+        product.name
+      ].join(' ').toLowerCase();
+
+      // Check if this is activewear
+      const isActivewear = 
+        product.subcategory.toLowerCase() === 'activewear' ||
+        productText.includes('athletic') ||
+        productText.includes('workout') ||
+        productText.includes('running');
+
+      if (!isActivewear) return false;
+
+      // Match product type
+      if (searchParams.product_type) {
+        const productTypeMatches = 
+          product.product_type.toLowerCase().includes(searchParams.product_type.toLowerCase()) ||
+          productText.includes(searchParams.product_type.toLowerCase());
+
+        if (!productTypeMatches) return false;
+      }
+
+      // For running gear, prioritize exact matches for running
+      if (searchParams.context?.activity === 'running') {
+        const isRunningGear = productText.includes('running');
+        if (!isRunningGear) return false;
+      }
+
+      // More flexible filter matching for athletic wear
+      if (searchParams.filters?.length > 0) {
+        // Count how many filters match rather than requiring all
+        const filterVariations = {
+          'lightweight': ['light', 'lightweight'],
+          'breathable': ['moisture wicking', 'quick dry', 'breathable'],
+          'quick-dry': ['moisture wicking', 'quick dry', 'breathable'],
+          'flexible': ['stretch', 'flexible', 'elastic']
+        };
+
+        const matchedFilters = searchParams.filters.filter(filter => {
+          const variations = filterVariations[filter.toLowerCase()] || [filter.toLowerCase()];
+          return variations.some(v => productText.includes(v));
+        });
+
+        // For running gear, require at least one filter match
+        if (matchedFilters.length === 0) return false;
+      }
+
+      return true;
+    });
+  }
+
+  // For all other queries, use regular matching logic
   return productCatalog.filter(product => {
-    // Enhanced category matching with semantic variations
-    if (searchParams.category) {
-      const productCategory = product.category.toLowerCase();
-      const searchCategory = searchParams.category.toLowerCase();
-      
-      // Handle semantic variations (e.g., "clothing" matches "apparel")
-      const categoryMatches = 
-        productCategory.includes(searchCategory) ||
-        searchCategory.includes(productCategory) ||
-        // Common semantic mappings
-        (searchCategory === 'clothing' && productCategory.includes('apparel')) ||
-        (searchCategory === 'apparel' && productCategory.includes('clothing'));
-      
-      if (!categoryMatches) {
-        return false;
-      }
-    }
-    
-    // Enhanced subcategory matching with semantic variations
-    if (searchParams.subcategory) {
-      const productSubCat = product.subcategory.toLowerCase();
-      const searchSubCat = searchParams.subcategory.toLowerCase();
-      
-      // Handle semantic variations and related subcategories
-      const subcategoryMatches = 
-        productSubCat.includes(searchSubCat) ||
-        searchSubCat.includes(productSubCat) ||
-        // Common semantic mappings for subcategories
-        (searchSubCat === 'pants' && (productSubCat.includes('bottoms') || productSubCat.includes('trousers'))) ||
-        (searchSubCat === 'audio' && productSubCat.includes('sound'));
-      
-      if (!subcategoryMatches) {
-        return false;
-      }
-    }
-    
-    // Enhanced product type matching with semantic variations
-    if (searchParams.product_type) {
-      const searchType = searchParams.product_type.toLowerCase();
-      const productType = product.product_type.toLowerCase();
-      const productName = product.name.toLowerCase();
-      
-      // Handle semantic variations and related product types
-      const typeMatches = 
-        productType.includes(searchType) ||
-        searchType.includes(productType) ||
-        productName.includes(searchType) ||
-        // Common semantic mappings for product types
-        (searchType === 'jeans' && (
-          productType.includes('denim') || 
-          productName.includes('denim') || 
-          productType.includes('pants')
-        )) ||
-        (searchType === 'earbuds' && (
-          productType.includes('headphone') ||
-          productName.includes('wireless') ||
-          productName.includes('bluetooth')
-        ));
-      
-      if (!typeMatches) {
-        return false;
-      }
-    }
-    
-    // Enhanced filter matching with semantic variations
-    if (searchParams.filters && searchParams.filters.length > 0) {
-      const hasMatchingAttribute = searchParams.filters.some(filter => {
-        const filterLower = filter.toLowerCase();
-        
-        // Check product filters with semantic variations
-        if (product.filters && product.filters.length > 0) {
-          return product.filters.some(attr => {
-            const attrLower = attr.toLowerCase();
-            return (
-              attrLower.includes(filterLower) ||
-              filterLower.includes(attrLower) ||
-              // Common semantic mappings for filters
-              (filterLower === 'wireless' && attrLower.includes('bluetooth')) ||
-              (filterLower === 'noise cancellation' && (
-                attrLower.includes('noise') || 
-                attrLower.includes('anc')
-              ))
-            );
-          });
+    // Enhanced context matching for workout and lounge queries
+    if (searchParams.context?.activity) {
+      const activityCategories = {
+        'working out': {
+          categories: ['clothing', 'sports'],
+          subcategories: ['activewear', 'athletic', 'fitness'],
+          productTypes: ['tank top', 't-shirt', 'shorts', 'leggings', 'sports bra', 'yoga pants', 'running shorts'],
+          keywords: ['moisture wicking', 'breathable', 'quick dry', 'flexible', 'athletic', 'workout', 'gym']
+        },
+        'lounging': {
+          categories: ['clothing'],
+          subcategories: ['loungewear', 'sleepwear', 'bottoms'],
+          productTypes: ['sweatpants', 'joggers', 'pajama set', 'lounge pants'],
+          keywords: ['comfortable', 'soft', 'relaxed', 'fleece', 'elastic waist']
         }
-        
-        // Also check product name and description for filter matches
-        return (
-          productName.includes(filterLower) ||
-          (product.description && product.description.toLowerCase().includes(filterLower))
-        );
-      });
-      
-      if (!hasMatchingAttribute) {
-        return false;
+      };
+
+      const activityMapping = activityCategories[searchParams.context.activity];
+      if (activityMapping) {
+        // Check if product matches the activity context
+        const productText = [
+          product.category,
+          product.subcategory,
+          product.product_type,
+          ...product.filters,
+          product.name
+        ].join(' ').toLowerCase();
+
+        const matchesActivity = 
+          activityMapping.categories.some(cat => product.category.toLowerCase() === cat) ||
+          activityMapping.subcategories.some(sub => product.subcategory.toLowerCase().includes(sub)) ||
+          activityMapping.productTypes.some(type => product.product_type.toLowerCase().includes(type)) ||
+          activityMapping.keywords.some(keyword => productText.includes(keyword));
+
+        if (!matchesActivity) return false;
       }
     }
-    
+
+    // Basic category matching
+    if (searchParams.category && 
+        !product.category.toLowerCase().includes(searchParams.category.toLowerCase())) {
+      return false;
+    }
+
+    // Enhanced subcategory matching
+    if (searchParams.subcategory) {
+      const subcategoryVariations = {
+        'activewear': ['athletic', 'fitness', 'gym', 'sport', 'workout'],
+        'loungewear': ['casual', 'comfort', 'lounge', 'sleepwear'],
+        'bottoms': ['pants', 'shorts', 'leggings']
+      };
+
+      const variations = subcategoryVariations[searchParams.subcategory.toLowerCase()] || [];
+      const subcategoryMatches = 
+        product.subcategory.toLowerCase().includes(searchParams.subcategory.toLowerCase()) ||
+        variations.some(v => product.subcategory.toLowerCase().includes(v));
+
+      if (!subcategoryMatches) return false;
+    }
+
+    // Product type matching with catalog terms
+    if (searchParams.product_type) {
+      const productTypeVariations = {
+        'tank top': ['tank', 'sleeveless'],
+        'sweatpants': ['joggers', 'pants', 'bottoms'],
+        't-shirt': ['tee', 'shirt'],
+        'sports bra': ['bra', 'top'],
+        'leggings': ['pants', 'tights', 'yoga pants']
+      };
+
+      const variations = productTypeVariations[searchParams.product_type.toLowerCase()] || [];
+      const typeMatches = 
+        product.product_type.toLowerCase().includes(searchParams.product_type.toLowerCase()) ||
+        variations.some(v => product.product_type.toLowerCase().includes(v)) ||
+        product.name.toLowerCase().includes(searchParams.product_type.toLowerCase());
+
+      if (!typeMatches) return false;
+    }
+
+    // Filter matching with catalog terms
+    if (searchParams.filters?.length > 0) {
+      const filterVariations = {
+        'moisture-wicking': ['quick dry', 'moisture', 'wicking', 'breathable'],
+        'flexible': ['stretch', 'elastic', 'flex', 'movable'],
+        'comfortable': ['soft', 'comfort', 'cozy', 'plush'],
+        'breathable': ['moisture wicking', 'ventilated', 'quick dry'],
+        'soft': ['comfortable', 'plush', 'cozy']
+      };
+
+      const allFiltersMatch = searchParams.filters.every(filter => {
+        const variations = filterVariations[filter.toLowerCase()] || [];
+        const productText = [
+          ...product.filters.map(f => f.toLowerCase()),
+          product.name.toLowerCase(),
+          product.product_type.toLowerCase()
+        ].join(' ');
+
+        return productText.includes(filter.toLowerCase()) ||
+               variations.some(v => productText.includes(v));
+      });
+
+      if (!allFiltersMatch) return false;
+    }
+
     return true;
   });
 }
@@ -229,29 +434,18 @@ function logUnrecognizedQuery(query, output) {
 function normalizeProductOutput(output) {
   const normalized = { ...output };
   
-  // Basic standardization of terms
-  if (normalized.product_type) {
-    const type = normalized.product_type.toLowerCase();
-    // Common product type normalizations
-    if (type.includes('jean') || type.includes('denim')) {
-      normalized.product_type = 'jeans';
-    } else if (type.includes('earbud') || type.includes('headphone')) {
-      normalized.product_type = 'earbuds';
-    }
+  // Only do basic lowercase normalization
+  if (normalized.category) {
+    normalized.category = normalized.category.toLowerCase();
   }
-  
+  if (normalized.subcategory) {
+    normalized.subcategory = normalized.subcategory.toLowerCase();
+  }
+  if (normalized.product_type) {
+    normalized.product_type = normalized.product_type.toLowerCase();
+  }
   if (normalized.filters) {
-    normalized.filters = normalized.filters.map(filter => {
-      const filterLower = filter.toLowerCase();
-      // Common filter normalizations
-      if (filterLower.includes('noise') && filterLower.includes('cancel')) {
-        return 'noise cancellation';
-      }
-      if (filterLower.includes('bluetooth') || filterLower.includes('wireless')) {
-        return 'wireless';
-      }
-      return filterLower;
-    });
+    normalized.filters = normalized.filters.map(filter => filter.toLowerCase().trim());
   }
   
   return normalized;
@@ -447,19 +641,52 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
 });
 
-function startServer(port) {
-  const server = app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
-    console.log(`API URL: http://localhost:${port}/api/search`);
-  }).on('error', (err) => {
-    if (err.code === 'EADDRINUSE') {
-      console.log(`Port ${port} is already in use, trying ${port + 1}`);
-      startServer(port + 1);
-    } else {
-      console.error('Server error:', err);
-    }
-  });
-}
+// Add debug logging
+app.use((req, res, next) => {
+  console.log(`${new Date().toISOString()} ${req.method} ${req.url}`);
+  next();
+});
 
-startServer(PORT);
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error('Server error:', err);
+  res.status(500).json({
+    error: 'Internal server error',
+    details: err.message
+  });
+});
+
+const DEFAULT_PORT = 3002;
+
+process.on('uncaughtException', (err) => {
+  console.error('Uncaught Exception:', err);
+  process.exit(1);
+});
+
+const startServer = async (port = DEFAULT_PORT) => {
+  try {
+    console.log('Starting server...');
+    console.log('Current directory:', __dirname);
+    console.log('Product catalog size:', productCatalog.length);
+
+    const server = app.listen(port, '0.0.0.0', () => {
+      console.log(`Server is running on http://0.0.0.0:${port}`);
+    });
+
+    server.on('error', (err) => {
+      console.error('Server error:', err);
+      if (err.code === 'EADDRINUSE') {
+        console.log(`Port ${port} is busy, trying ${port + 1}...`);
+        startServer(port + 1);
+      }
+    });
+
+    return server;
+  } catch (err) {
+    console.error('Failed to start server:', err);
+    process.exit(1);
+  }
+};
+
+startServer();
 

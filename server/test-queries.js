@@ -47,6 +47,19 @@ const queries = [
   }
 ];
 
+const testPrompts = [
+    "Find me a high-end gaming laptop with at least 16GB RAM",
+    "Show me wireless headphones with noise cancellation",
+    "I need a smartphone with a good camera and long battery life",
+    "Looking for a smartwatch that tracks heart rate and sleep",
+    "Find me a 4K TV with HDR support",
+    "I need a portable Bluetooth speaker with good bass",
+    "Show me laptops under $1000 with SSD storage",
+    "Find me a tablet with stylus support for drawing",
+    "Looking for a DSLR camera for beginners",
+    "Show me smart home devices that work with Alexa"
+];
+
 // Kill existing Node processes
 function killProcesses() {
   return new Promise((resolve) => {
@@ -132,4 +145,39 @@ async function runTests() {
 }
 
 // Run the tests
-runTests(); 
+runTests();
+
+async function testQueries() {
+    console.log('Starting test queries...\n');
+    
+    for (const prompt of testPrompts) {
+        try {
+            console.log(`Testing prompt: "${prompt}"`);
+            const response = await axios.post('http://localhost:3000/api/search', {
+                prompt: prompt
+            });
+            
+            console.log('Response received:');
+            console.log(`- Status: ${response.status}`);
+            console.log(`- Number of results: ${response.data.products.length}`);
+            console.log('Sample results:');
+            response.data.products.slice(0, 3).forEach(product => {
+                console.log(`  - ${product.name} (ID: ${product.id})`);
+            });
+            console.log('\n');
+            
+        } catch (error) {
+            console.error(`Error testing prompt "${prompt}":`);
+            console.error(error.message);
+            if (error.response) {
+                console.error('Response data:', error.response.data);
+            }
+            console.log('\n');
+        }
+        
+        // Add a small delay between requests
+        await new Promise(resolve => setTimeout(resolve, 1000));
+    }
+}
+
+testQueries().catch(console.error); 

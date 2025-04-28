@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "name": "search-analysis-app-server",
   "version": "1.0.0",
   "main": "index.js",
@@ -27,9 +26,5 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.9"
-=======
-  "dependencies": {
-    "axios": "^1.8.4"
->>>>>>> 476311379d8100eb62d203722f74e9665bc09c1d
   }
 }

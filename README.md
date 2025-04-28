@@ -15,8 +15,8 @@ An intelligent product search application that understands natural language quer
 
 1. Clone the repository:
 ```bash
-git clone [your-repo-url]
-cd SearchAnalysisApp
+git clone https://github.com/ariovcharenko/ai-shopping-assistant.git
+cd ai-shopping-assistant
 ```
 
 2. Install dependencies for both frontend and backend:
@@ -60,6 +60,12 @@ Required environment variables in `.env`:
 Make sure the application is connected to:
 1. Product catalog (located in server/data/product-catalog.json)
 2. OpenAI API (verify your API key in .env)
+
+## Project Structure
+
+- `frontend/` - React frontend application
+- `server/` - Node.js/Express backend server
+- `server/data/` - JSON data files including product catalog
 
 ## License
 

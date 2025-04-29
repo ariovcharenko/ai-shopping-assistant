@@ -1,71 +1,72 @@
-# AI-Powered Product Search
+# AI-Powered Product Search Analysis
 
-An intelligent product search application that understands natural language queries and maps them to relevant products in the catalog.
+A sophisticated application that uses natural language processing to bridge the gap between user search queries and product catalog data. The system provides intelligent product search capabilities while tracking performance metrics to continuously improve search relevance.
 
-## Features
+## Overview
 
-- Natural language processing for product search
-- 1000+ product catalog
-- Real-time search results
-- Modern React frontend
-- Node.js/Express backend
-- OpenAI integration
+This application demonstrates how AI can enhance e-commerce search experiences by understanding natural language queries and mapping them to structured product data. The system leverages OpenAI's language models to interpret user intent and match it with the most relevant products in a catalog.
 
-## Setup Instructions
+## Key Features
 
-1. Clone the repository:
-```bash
-git clone https://github.com/ariovcharenko/ai-shopping-assistant.git
-cd ai-shopping-assistant
-```
+- **Natural Language Search**: Process complex, conversational queries and map them to relevant products
+- **Search Performance Analysis**: Track and visualize search accuracy metrics over time
+- **Real-time Results**: Instantly see how your search queries match against the product catalog
+- **Search Statistics Dashboard**: Monitor improvement in search accuracy and precision
 
-2. Install dependencies for both frontend and backend:
-```bash
-# Install backend dependencies
-cd server
-npm install
+## Search Statistics Improvements
 
-# Install frontend dependencies
-cd ../frontend
-npm install
-```
+I've implemented several enhancements to improve the search statistics and analytics capabilities:
 
-3. Configure environment variables:
-```bash
-# In the server directory
-# Create a .env file and add your OpenAI API key
-OPENAI_API_KEY=<your-api-key>
-PORT=5004
-```
+### 1. Advanced Query-Product Matching
 
-4. Start the application:
-```bash
-# From the root directory
-./start-app.sh
-```
+The system now uses a sophisticated scoring algorithm that evaluates multiple aspects of a search query:
+- Semantic relevance between query terms and product attributes
+- Category and subcategory matching precision
+- Product attribute prioritization based on query context
+- Filter compatibility scoring
 
-The application will automatically:
-- Start the backend server on port 5004
-- Start the frontend on port 5173
-- Open the application in your default browser
+### 2. Performance Metrics Tracking
 
-## Environment Variables
+Search performance is measured across multiple dimensions:
+- **Match Accuracy**: Percentage of queries that return relevant products
+- **Precision@K**: Relevance of the top K results for each query
+- **Query Processing Time**: Time taken to process and return results
+- **User Satisfaction**: Based on selected results vs. suggested options
 
-Required environment variables in `.env`:
-- `OPENAI_API_KEY`: Your OpenAI API key
-- `PORT`: Backend server port (default: 5004)
+### 3. Continuous Learning System
 
-## Testing
+The application includes a feedback loop that:
+- Records all search queries and result selections
+- Analyzes patterns in successful vs. unsuccessful searches
+- Refines the matching algorithm based on historical performance
+- Adapts to changing search patterns and user behaviors
 
-Make sure the application is connected to:
-1. Product catalog (located in server/data/product-catalog.json)
-2. OpenAI API (verify your API key in .env)
+### 4. Visualization of Improvements
+
+The statistics panel provides visual confirmation of search improvements:
+- Trend charts showing accuracy improvements over time
+- Category-specific performance metrics
+- Query complexity vs. match success correlation
+
+## Technology Stack
+
+- **Frontend**: React with modern hooks and context API
+- **Backend**: Node.js/Express
+- **AI Integration**: OpenAI API for natural language understanding
+- **Data Storage**: JSON-based product catalog with 280+ diverse products
 
 ## Project Structure
 
-- `frontend/` - React frontend application
-- `server/` - Node.js/Express backend server
-- `server/data/` - JSON data files including product catalog
+- `frontend/`: React application with search interface and results visualization
+- `server/`: Node.js backend with OpenAI integration and search logic
+- `server/data/`: JSON data files including product catalog and performance metrics
+
+## Related Documentation
+
+For setup instructions and component-specific information, please see:
+- [Server Setup Instructions](./server/README.md)
+- [Frontend Setup Instructions](./frontend/README.md)
+- [Running the Complete Application](./SETUP.md)
 
 ## License
 

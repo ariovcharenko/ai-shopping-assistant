@@ -3,6 +3,8 @@ import React from 'react';
 const ResultsPanel = ({ results }) => {
   if (!results) return null;
 
+  console.log('ResultsPanel received results:', results);
+
   const { searchParams, products, total } = results;
 
   return (

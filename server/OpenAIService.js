@@ -52,73 +52,68 @@ OUTPUT FORMAT:
     "intent": string (e.g., "gifting", "personal use", "home improvement"),
     "recipient": string (optional, e.g., "self", "child", "friend"),
     "recipient_age": string (optional),
-    "location": string (optional, e.g., "kitchen", "bathroom", "bedroom"),
-    "activity": string (optional),
-    "occasion": string (optional),
-    "priority_attributes": [string] (key features emphasized)
+    "occasion": string (optional, e.g., "formal dinner", "workout", "casual", "professional"),
+    "activity": string (optional, activity the item will be used for),
+    "location": string (optional, where the item will be used),
+    "environment": string (optional, one of: "indoor", "outdoor", "both"),
+    "priority_attributes": [string] (most important features mentioned),
+    "appropriateness_rules": [string] (rules for what makes a product appropriate for this context),
+    "gender_requirement": string (optional, "men", "women", "unisex", "children", etc.),
+    "formality_level": string (optional, one of: "formal", "business", "casual", "athletic", "loungewear")
   },
-  "confidence": number (0.0-1.0)
+  "confidence": float (0.0-1.0),
+  "semantic_incompatibilities": [string] (optional, product types that would be semantically INAPPROPRIATE for this query)
 }
 
-DOMAIN RECOGNITION RULES:
-1. Kitchen & Home:
-   - If query mentions kitchen appliances, cookware, utensils, or food preparation → category: "kitchen"
-   - If query mentions furniture, decor, bedding → category: "home goods"
-   - If query mentions cleaning or organization → category: "home essentials"
-
-2. Toys & Gifts:
-   - If query mentions children, kids, or specific age groups → likely category: "toys" or "children's items"
-   - If mentions "gift" + age/gender/occasion → determine appropriate gift category
-
-3. Electronics:
-   - If query mentions devices, gadgets, tech → category: "electronics"
-   - Map to subcategories like "audio", "computing", "smart home" based on specifics
-
-4. Clothing & Fashion:
-   - If query mentions apparel, garments, clothes → category: "clothing"
-   - Map to specific subcategories and types as currently implemented
-
-5. General Shopping Intent:
-   - Recognize browsing vs. specific product search
-   - Handle expressions like "looking for something to..."
-   - Understand gift-giving contexts
-
-CATEGORY MAPPING:
-- "kitchen" → For cooking tools, appliances, kitchenware
-- "home goods" → For furniture, decor, bedding
-- "electronics" → For tech devices, gadgets
-- "toys" → For children's playthings
-- "clothing" → For apparel items
-- "footwear" → For shoes, boots, sneakers
-- "accessories" → For wearable add-ons
-- "beauty" → For cosmetics, skincare
-- "sports" → For athletic equipment
-- "automotive" → For car-related items
-- "tools" → For DIY, repair items
+CATEGORY TAXONOMY:
+- "clothing" → For wearable items
+- "electronics" → For tech, gadgets, devices
+- "home" → For furniture, decor, kitchen items
+- "beauty" → For cosmetics and personal care
+- "accessories" → For bags, jewelry, watches, etc.
 - "garden" → For outdoor, plants, landscaping
 - "pet supplies" → For animal care items
 - "books" → For reading materials
 - "health" → For wellness, medical items
 
 CONTEXTUAL UNDERSTANDING:
-1. Recipient Analysis:
-   - Direct: "I need X" → self
-   - Indirect: "Looking for X for my [relation]" → relation
-   - Gender indicators: "for women", "men's" → gender:female/male
-   - Age indicators: "for a 6 year old" → child, age:6
+1. Gender-Specific Requirements:
+   - When a query mentions "women's", "for women", "ladies", etc., ONLY women's products are appropriate
+   - When a query mentions "men's", "for men", "guys", etc., ONLY men's products are appropriate
+   - Items must STRICTLY match the gender requirement - this is a HARD FILTER
 
-2. Location/Usage Context:
-   - "for the kitchen" → location:kitchen
-   - "to use at the gym" → location:gym, activity:exercise
+2. Formality Hierarchy (from most to least formal):
+   - Formal: evening wear, dress shoes, suits, cocktail dresses
+   - Business: business casual, office wear, blazers, dress shirts
+   - Smart casual: polos, chinos, casual dresses
+   - Casual: jeans, t-shirts, sneakers, everyday wear
+   - Athletic: workout clothes, sports gear
+   - Loungewear: pajamas, slippers, robes
+   
+3. Indoor vs. Outdoor Context Detection:
+   - Indoor locations: gym, studio, office, home, mall, restaurant, classroom
+   - Outdoor locations: trail, park, beach, garden, mountain, camping site
+   - Indoor activities: workout, lifting, yoga, cooking, studying, meeting
+   - Outdoor activities: hiking, running, camping, gardening, beach activities
+   - Always specify the environment field as "indoor", "outdoor", or "both"
+   - For indoor contexts, weather protection features like waterproofing are irrelevant
+   - For outdoor contexts, weather protection may be important depending on the activity
 
-3. Intent Recognition:
-   - "gift for" → intent:gifting
-   - "something to help with" → intent:problem-solving
-   - "need to replace my" → intent:replacement
+4. Occasion-Appropriate Matching:
+   - Products must be semantically appropriate for the stated occasion
+   - Example: "formal dinner" requires formal attire, NEVER athletic or loungewear
+   - Example: "hiking" requires outdoor/athletic gear, NEVER formal wear
+   
+5. Semantic Incompatibilities:
+   - List product types that would be completely inappropriate for the query
+   - For indoor activities, include outdoor-specific gear in incompatibilities
+   - For outdoor activities, include non-weather-appropriate items if relevant
 
-4. Priority Extraction:
-   - Recognize emphasized features or requirements
-   - Note budget constraints or quality expectations
+6. Bottom Wear Classification:
+   - When a query mentions "pants", "trousers", "jeans", or "denim pants", the product_type should ALWAYS be "jeans" 
+   - NEVER return skirts, jackets, or tops for pants/jeans queries
+   - When "denim" is mentioned in relation to bottom wear, it refers to jeans
+   - For pants queries, incompatible items include: skirts, dresses, shorts, tops, jackets
 
 EXAMPLES:
 
@@ -132,61 +127,120 @@ Query: "Looking for a gift for a 6 year old"
     "intent": "gifting",
     "recipient": "child",
     "recipient_age": "6 years",
-    "priority_attributes": ["age-appropriate"]
+    "priority_attributes": ["age-appropriate"],
+    "appropriateness_rules": ["suitable for children", "age-appropriate for 6 years", "not adult-oriented", "not hazardous"]
   },
-  "confidence": 0.85
+  "confidence": 0.85,
+  "semantic_incompatibilities": ["alcohol", "sharp tools", "makeup", "adult books"]
 }
 
-Query: "Something for my kitchen to make smoothies"
+Query: "need women's shoes for fancy dinner"
 {
-  "product_type": "blender",
-  "category": "kitchen",
-  "subcategory": "small appliances",
-  "filters": ["food processing"],
+  "product_type": "dress shoes",
+  "category": "footwear",
+  "subcategory": "women's shoes",
+  "filters": ["women", "dressy", "formal"],
   "context": {
-    "intent": "food preparation", 
-    "location": "kitchen",
-    "activity": "making smoothies",
-    "priority_attributes": ["blending capability"]
+    "intent": "personal use",
+    "occasion": "formal dinner",
+    "environment": "indoor",
+    "gender_requirement": "women",
+    "formality_level": "formal",
+    "appropriateness_rules": [
+      "must be women's shoes only", 
+      "must be formal", 
+      "must be dressy", 
+      "must be elegant", 
+      "not casual", 
+      "not athletic", 
+      "not waterproof boots", 
+      "not rain boots", 
+      "not hiking footwear", 
+      "not beach footwear",
+      "not loungewear"
+    ],
+    "priority_attributes": ["style", "formal appearance"]
   },
-  "confidence": 0.9
+  "confidence": 0.95,
+  "semantic_incompatibilities": ["running shoes", "hiking boots", "slippers", "flip flops", "rain boots", "snow boots", "athletic shoes"]
 }
 
-Query: "Something for women to wear at the gym"
+Query: "I need something to wear for lifting at the gym"
 {
-  "product_type": null,
+  "product_type": "workout clothes",
   "category": "clothing",
   "subcategory": "activewear",
-  "filters": ["women's", "athletic"],
+  "filters": ["athletic", "comfortable", "flexible"],
   "context": {
-    "recipient": "women",
+    "intent": "personal use",
+    "occasion": "workout",
+    "activity": "lifting",
     "location": "gym",
-    "activity": "exercise",
-    "intended_use": "workout",
-    "priority_attributes": ["athletic performance"]
+    "environment": "indoor",
+    "formality_level": "athletic",
+    "appropriateness_rules": [
+      "must be suitable for exercise", 
+      "must be comfortable",
+      "must allow movement",
+      "not formal wear",
+      "not outdoor specific",
+      "not waterproof gear",
+      "not rain protection"
+    ],
+    "priority_attributes": ["comfort", "flexibility", "athletic performance"]
   },
-  "confidence": 0.9
+  "confidence": 0.92,
+  "semantic_incompatibilities": ["rain jacket", "waterproof coat", "formal wear", "business attire", "pajamas", "jeans"]
 }
 
-Query: "looking for noise canceling headphones for travel"
+Query: "I need denim pants"
 {
-  "product_type": "headphones",
-  "category": "electronics",
-  "subcategory": "audio",
-  "filters": ["noise-canceling", "portable"],
+  "product_type": "jeans",
+  "category": "clothing",
+  "subcategory": "bottoms",
+  "filters": ["denim"],
   "context": {
-    "activity": "traveling",
-    "intended_use": "mobile audio",
-    "priority_attributes": ["noise-canceling"]
+    "intent": "personal use",
+    "environment": "both",
+    "formality_level": "casual",
+    "appropriateness_rules": [
+      "must be pants/trousers",
+      "must be denim material",
+      "not skirts",
+      "not shorts",
+      "not jackets",
+      "not tops"
+    ],
+    "priority_attributes": ["denim material", "proper fit"]
   },
-  "confidence": 0.9
+  "confidence": 0.95,
+  "semantic_incompatibilities": ["skirts", "dresses", "jackets", "shirts", "tops"]
 }
 
-CANONICALIZATION RULES:
-- Apply existing product type and feature mapping
-- For ambiguous queries, set product_type to null and focus on category/subcategory
-- When specific product isn't clear, infer the most likely category based on context
-- Use confidence score to indicate certainty of mapping
+Query: "hiking boots for mountain trails"
+{
+  "product_type": "hiking boots",
+  "category": "footwear",
+  "subcategory": "outdoor shoes",
+  "filters": ["durable", "waterproof", "hiking"],
+  "context": {
+    "intent": "personal use",
+    "activity": "hiking",
+    "location": "mountain trails",
+    "environment": "outdoor",
+    "appropriateness_rules": [
+      "must be suitable for rough terrain",
+      "must provide ankle support",
+      "must be durable",
+      "ideally waterproof",
+      "not formal wear",
+      "not indoor specific"
+    ],
+    "priority_attributes": ["durability", "comfort", "traction", "weather protection"]
+  },
+  "confidence": 0.95,
+  "semantic_incompatibilities": ["dress shoes", "high heels", "slippers", "loafers", "casual sneakers"]
+}
 
 CONFIDENCE SCORING:
 - 0.9-1.0: Explicit product type and clear intent
@@ -201,7 +255,13 @@ IMPORTANT RULES:
 4. Focus on identifying the appropriate retail domain first, then narrow down
 5. Recognize when a query is too vague and reflect that in the confidence score
 6. Handle mixed intents by focusing on the primary purpose
-7. For unfamiliar product types, focus on categorization rather than specific naming`;
+7. For unfamiliar product types, focus on categorization rather than specific naming
+8. Always include appropriateness_rules and make them COMPREHENSIVE and SPECIFIC
+9. Always specify the environment (indoor/outdoor/both) when it can be determined
+10. ALWAYS include gender_requirement when gender is specified in the query
+11. ALWAYS include semantic_incompatibilities to explicitly list product types that would be inappropriate
+12. If query mentions a gender, make sure to include a strict rule that ONLY products for that gender are appropriate
+13. For any query about pants, jeans, trousers, or denim pants, ALWAYS set product_type to "jeans" and include skirts and jackets in semantic_incompatibilities`;
 
 async function analyzeSearchQuery(query) {
   try {
@@ -265,11 +325,22 @@ function canonicalizeSearchParams(params) {
     });
   }
 
-  // Ensure arrays exist
+  // Ensure arrays exist and context is properly initialized
   normalized.filters = normalized.filters || [];
-  if (normalized.context) {
-    normalized.context.priority_attributes = normalized.context.priority_attributes || [];
+  
+  // Initialize context if it doesn't exist
+  if (!normalized.context) {
+    normalized.context = {};
   }
+  
+  // Ensure priority_attributes exists
+  normalized.context.priority_attributes = normalized.context.priority_attributes || [];
+  
+  // Ensure appropriateness_rules exists
+  normalized.context.appropriateness_rules = normalized.context.appropriateness_rules || [];
+  
+  // Ensure semantic_incompatibilities exists
+  normalized.semantic_incompatibilities = normalized.semantic_incompatibilities || [];
 
   return normalized;
 }

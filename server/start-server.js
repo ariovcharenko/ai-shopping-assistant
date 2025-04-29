@@ -1,25 +1,21 @@
 const { spawn } = require('child_process');
 const net = require('net');
+require('dotenv').config();
 
-// Find an available port
-async function findAvailablePort(startPort) {
-  const isPortAvailable = (port) => {
-    return new Promise((resolve) => {
-      const server = net.createServer();
-      server.once('error', () => resolve(false));
-      server.once('listening', () => {
-        server.close();
-        resolve(true);
-      });
-      server.listen(port);
+// Use the PORT from .env file, fallback to 5004 if not specified
+const PORT = process.env.PORT || 5004;
+
+// Check if the port is available
+async function isPortAvailable(port) {
+  return new Promise((resolve) => {
+    const server = net.createServer();
+    server.once('error', () => resolve(false));
+    server.once('listening', () => {
+      server.close();
+      resolve(true);
     });
-  };
-
-  let port = startPort;
-  while (!(await isPortAvailable(port))) {
-    port++;
-  }
-  return port;
+    server.listen(port);
+  });
 }
 
 // Kill existing Node processes
@@ -39,12 +35,17 @@ async function startServer() {
     // Clean up existing processes
     await killExistingProcesses();
     
-    // Find available port
-    const port = await findAvailablePort(3000);
-    console.log(`Starting server on port ${port}`);
+    // Check if specified port is available
+    const isAvailable = await isPortAvailable(PORT);
+    if (!isAvailable) {
+      console.error(`Port ${PORT} is already in use. Please specify a different port in the .env file or free up this port.`);
+      process.exit(1);
+    }
+    
+    console.log(`Starting server on port ${PORT}`);
     
     // Set environment variables
-    const env = { ...process.env, PORT: port.toString() };
+    const env = { ...process.env, PORT: PORT.toString() };
     
     // Start the server
     const server = spawn('node', ['index.js'], {
@@ -59,7 +60,7 @@ async function startServer() {
     });
     
     // Log the port
-    console.log(`Server should be available at http://localhost:${port}`);
+    console.log(`Server should be available at http://localhost:${PORT}`);
     
   } catch (error) {
     console.error('Error starting server:', error);
@@ -68,4 +69,4 @@ async function startServer() {
 }
 
 // Run the startup sequence
-startServer(); 
+startServer();

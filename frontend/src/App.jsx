@@ -17,7 +17,7 @@ function App() {
   useEffect(() => {
     const checkEnvironment = async () => {
       try {
-        await axios.get('http://localhost:3000/api/health');
+        await axios.get('http://localhost:5004/api/health');
         setNodeInstalled(true);
       } catch (err) {
         console.error('Backend server not available:', err);
@@ -43,11 +43,14 @@ function App() {
       return;
     }
 
+    console.log('Sending query to backend:', query);
+
     setIsLoading(true);
     setError(null);
 
     try {
-      const response = await axios.post('http://localhost:3000/api/search', { query });
+      const response = await axios.post('http://localhost:5004/api/search', { query });
+      console.log('Backend response:', response.data);
       setResults({
         searchParams: response.data.searchParams,
         products: response.data.products,
@@ -81,26 +84,18 @@ function App() {
   // Otherwise, show the main application
   return (
     <div className="app-container">
-      <header>
-        <h1>Search Analysis App</h1>
-        <p>
-          Enter a product search query and get AI-powered structured analysis
-        </p>
-      </header>
-
-      <div className="search-form">
-        <SearchInput onQueryChange={handleQueryChange} />
-        
-        <div>
-          <AnalyzeButton onClick={handleAnalyze} isLoading={isLoading} />
-        </div>
-
-        {error && (
-          <div className="error-message">
-            {error}
-          </div>
-        )}
+      <h1 className="app-title">Search Analysis App</h1>
+      <SearchInput onQueryChange={handleQueryChange} />
+      
+      <div>
+        <AnalyzeButton onClick={handleAnalyze} isLoading={isLoading} />
       </div>
+
+      {error && (
+        <div className="error-message">
+          {error}
+        </div>
+      )}
 
       {results && <ResultsPanel results={results} />}
     </div>

@@ -1,0 +1,8 @@
+# Ignore all evaluation results files
+simulation-results.json
+evaluation-results.json
+evaluation-results-public.json
+
+# Ignore any additional backup files
+*.bak
+*-backup.json

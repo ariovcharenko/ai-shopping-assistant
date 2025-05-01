@@ -98,6 +98,16 @@ That's where evals came in. They became the foundation of my development process
 | Semantic Match Accuracy    |     61%       |        83%         |     91%      |
 | Query Understanding Score  |   Medium      |       High         |  Very High   |
 
+## Research Evaluation Framework
+
+To validate the system's performance, we developed a comprehensive search analysis evaluation framework. This framework assesses search quality across multiple dimensions:
+
+- **Overall accuracy rate of 95.9%** with category matching precision of 97%
+- **Semantic understanding score of 95.3%** demonstrating strong query intent comprehension
+- **100% query completion rate** with 83% of queries returning relevant product matches
+
+For detailed metrics and methodology, see the [Research Evaluation Documentation](./server/ResearchEvaluation/README.md).
+
 ## What This Project Demonstrates
 
 This project shows that accurate search results don't come from better models alone — they come from better evals driving better instructions and debugging. The key insight was understanding that technology should adapt to humans, not the other way around.
@@ -112,12 +122,14 @@ For anyone building user-facing AI, this approach emphasizes what matters most: 
 - **Backend**: Node.js/Express
 - **AI Integration**: OpenAI API for natural language understanding
 - **Data Storage**: JSON-based product catalog with 1,000+ diverse products
+- **Evaluation Framework**: Custom multi-dimensional scoring system for search quality assessment
 
 ## Project Structure
 
 - `frontend/`: React application with search interface and results visualization
 - `server/`: Node.js backend with OpenAI integration and search logic
 - `server/data/`: JSON data files including product catalog and performance metrics
+- `server/ResearchEvaluation/`: Framework for evaluating search accuracy and query understanding
 
 ## Related Documentation
 
@@ -125,6 +137,7 @@ For setup instructions and component-specific information, please see:
 - [Server Setup Instructions](./server/README.md)
 - [Frontend Setup Instructions](./frontend/README.md)
 - [Running the Complete Application](./SETUP.md)
+- [Evaluation Framework](./server/ResearchEvaluation/README.md)
 
 ## License
 
